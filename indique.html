@@ -1,71 +1,102 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Indique a DOGUI & Ganhe Recompensas | Estratégia & Ativação</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;700&display=swap"
         rel="stylesheet">
+
+    <!-- Tailwind CDN with Index Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: "#0c0c0c",
+                        offwhite: "#fdfdfd",
+                        gold: "#c5a059",
+                    },
+                    fontFamily: {
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+                        serif: ['"DM Serif Display"', 'serif'],
+                    },
+                    letterSpacing: {
+                        'architectural': '0.15em',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         :root {
+            --charcoal: #0c0c0c;
+            --offwhite: #fdfdfd;
             --gold: #c5a059;
-            --charcoal: #000000;
-            --offwhite: #f8f8f8;
-        }
-
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: var(--charcoal);
-            color: var(--offwhite);
-            cursor: none;
-            overflow-x: hidden;
-        }
-
-        .font-serif {
-            font-family: 'DM Serif Display', serif;
-        }
-
-        /* Dog Paw Cursor */
-        #cursor {
-            width: 50px;
-            height: 50px;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease-out;
-            mix-blend-difference: exclusion;
-        }
-
-        #cursor svg {
-            width: 100%;
-            height: 100%;
-            transition: transform 0.3s ease;
-        }
-
-        #cursor.active svg {
-            transform: scale(1.3) rotate(15deg);
         }
 
         /* Micro-noise Texture */
-        .noise-bg::before {
+        body::before {
             content: "";
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://grain-y.com/images/grain-dark.png');
-            opacity: 0.1;
             pointer-events: none;
-            z-index: 1000;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Animações de Revelação */
+        /* Standardized Cursor */
+        *,
+        *::before,
+        *::after {
+            cursor: none !important;
+        }
+
+        a,
+        button,
+        label,
+        input,
+        select,
+        textarea,
+        [onclick] {
+            cursor: none !important;
+        }
+
+        #cursor {
+            width: 44px;
+            height: 44px;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            transition: transform 0.12s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+            filter: drop-shadow(0 0 4px rgba(197, 160, 89, 0.5));
+            will-change: transform;
+        }
+
+        #cursor.pressed {
+            transform: translate(-50%, -50%) rotate(-15deg) scale(0.82);
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--charcoal);
+            color: var(--offwhite);
+            overflow-x: hidden;
+        }
+
         .reveal-text {
             clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
             transform: translateY(100px);
@@ -77,13 +108,10 @@
             transform: translateY(0);
             opacity: 1;
         }
-
-        /* Prevent link highlights on mobile */
-        -webkit-tap-highlight-color: transparent;
     </style>
 </head>
 
-<body class="noise-bg">
+<body class="bg-charcoal text-offwhite selection:bg-gold selection:text-charcoal relative">
 
     <!-- Dog Paw Cursor -->
     <div id="cursor" class="hidden md:block" aria-hidden="true">
@@ -96,19 +124,16 @@
         </svg>
     </div>
 
-    <!-- LOGO FIXO (Desktop) -->
+    <!-- LOGO FIXO (Index Parity) -->
     <div class="fixed top-8 left-12 z-[100] mix-blend-difference pointer-events-none hidden md:block">
         <a href="index.html" class="text-2xl font-bold tracking-[0.3em] font-sans pointer-events-auto">DOGUI</a>
     </div>
 
-    <!-- HEADER / NAV -->
+    <!-- HEADER / NAV (Index Parity) -->
     <header class="absolute top-0 left-0 w-full z-[90] mix-blend-difference py-8 px-6 md:px-12">
         <div class="flex items-center justify-between md:justify-center relative">
-
-            <!-- Logo Mobile -->
             <a href="index.html" class="md:hidden text-2xl font-bold tracking-[0.3em] font-sans">DOGUI</a>
 
-            <!-- Nav Desktop -->
             <nav class="hidden md:flex space-x-12 text-sm font-medium tracking-widest uppercase">
                 <a href="index.html#work" class="hover:text-gold transition-colors">Serviços</a>
                 <a href="index.html#method" class="hover:text-gold transition-colors">Método</a>
@@ -117,7 +142,6 @@
                 <a href="indique.html" class="text-gold">Indique & Ganhe</a>
             </nav>
 
-            <!-- Botão Hambúrguer -->
             <button id="menu-toggle" class="md:hidden flex flex-col gap-1.5 z-[110]" aria-label="Abrir Menu">
                 <span class="w-6 h-0.5 bg-offwhite transition-all duration-300"></span>
                 <span class="w-6 h-0.5 bg-offwhite transition-all duration-300"></span>
@@ -126,10 +150,10 @@
         </div>
     </header>
 
-    <!-- MENU MOBILE OVERLAY -->
+    <!-- MENU MOBILE OVERLAY (Index Parity) -->
     <div id="mobile-menu"
         class="fixed inset-0 z-[100] bg-charcoal translate-x-full transition-transform duration-500 md:hidden flex flex-col items-center justify-center p-12">
-        <nav class="flex flex-col items-center gap-12 text-2xl font-bold tracking-[0.2em] uppercase">
+        <nav class="flex flex-col items-center gap-12 text-2xl font-bold tracking-[0.2em] uppercase text-offwhite">
             <a href="index.html#work" onclick="toggleMobileMenu()">Serviços</a>
             <a href="index.html#method" onclick="toggleMobileMenu()">Método</a>
             <a href="index.html#about" onclick="toggleMobileMenu()">Sobre</a>
@@ -137,15 +161,10 @@
             <a href="indique.html" onclick="toggleMobileMenu()" class="text-gold border-b border-gold">Indique &
                 Ganhe</a>
         </nav>
-        <div class="absolute bottom-12 flex gap-8 opacity-40 text-[10px] uppercase tracking-widest">
-            <span>Ribeirão Preto</span>
-            <span>•</span>
-            <span>Estúdio Dogui</span>
-        </div>
     </div>
 
     <main>
-        <!-- HERO SECTION -->
+        <!-- HERO -->
         <section class="min-h-screen flex flex-col justify-center px-6 md:px-12 relative overflow-hidden pt-32">
             <div class="max-w-7xl mx-auto w-full">
                 <p class="text-[10px] uppercase tracking-[0.5em] text-gold mb-8 font-bold">Programa de Parceiros</p>
@@ -164,43 +183,34 @@
                     </a>
                 </div>
             </div>
-
-            <!-- Scroll Indicator -->
-            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-30">
-                <span class="text-[10px] uppercase tracking-[0.5em]">Como Funciona</span>
-                <div class="w-px h-12 bg-offwhite"></div>
-            </div>
         </section>
 
-        <!-- MECÂNICA (WHITE) -->
+        <!-- COMO FUNCIONA (FIXED: Black text on white) -->
         <section class="py-24 px-6 md:px-12 bg-white text-charcoal">
             <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-px md:bg-charcoal/10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-px md:bg-charcoal/5">
 
-                    <!-- Passo 01 -->
                     <div class="bg-white p-12 flex flex-col items-center text-center">
                         <span class="text-gold font-bold text-4xl mb-6">01</span>
-                        <h3 class="text-2xl font-bold uppercase mb-4 text-charcoal italic font-serif">Indique</h3>
+                        <h3 class="text-2xl font-bold uppercase mb-4 text-charcoal font-serif italic">Indique</h3>
                         <p class="text-sm text-charcoal/70 leading-relaxed">
                             Preencha os dados da marca ou gestor que você acredita que precisa elevar o jogo digital com
                             a DOGUI.
                         </p>
                     </div>
 
-                    <!-- Passo 02 -->
                     <div class="bg-white p-12 flex flex-col items-center text-center">
                         <span class="text-gold font-bold text-4xl mb-6">02</span>
-                        <h3 class="text-2xl font-bold uppercase mb-4 text-charcoal italic font-serif">Negociamos</h3>
+                        <h3 class="text-2xl font-bold uppercase mb-4 text-charcoal font-serif italic">Negociamos</h3>
                         <p class="text-sm text-charcoal/70 leading-relaxed">
                             Nossa equipe assume a frente estratégica. Você é notificado conforme o contrato avança para
                             o fechamento.
                         </p>
                     </div>
 
-                    <!-- Passo 03 -->
                     <div class="bg-white p-12 flex flex-col items-center text-center">
                         <span class="text-gold font-bold text-4xl mb-6">03</span>
-                        <h3 class="text-2xl font-bold uppercase mb-4 text-charcoal italic font-serif">Receba</h3>
+                        <h3 class="text-2xl font-bold uppercase mb-4 text-charcoal font-serif italic">Receba</h3>
                         <p class="text-sm text-charcoal/70 leading-relaxed">
                             Contrato assinado? Sua recompensa é processada e enviada diretamente. Sem burocracia, apenas
                             mérito.
@@ -211,55 +221,44 @@
             </div>
         </section>
 
-        <!-- FORMULÁRIO DE INDICAÇÃO -->
-        <section id="refer-form" class="py-32 px-6 md:px-12 bg-charcoal relative overflow-hidden">
-            <div class="max-w-4xl mx-auto relative z-10">
+        <!-- FORMULÁRIO -->
+        <section id="refer-form" class="py-32 px-6 md:px-12 bg-charcoal">
+            <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-24">
                     <h2 class="text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-8 reveal-text">Sua
                         Indicação.</h2>
-                    <p class="text-offwhite/60 tracking-widest uppercase text-xs">Preencha os campos abaixo e entraremos
-                        em contato.</p>
+                    <p class="text-offwhite/40 tracking-widest uppercase text-[10px] font-bold">Preencha os campos
+                        abaixo e entraremos em contato.</p>
                 </div>
 
                 <form class="space-y-12">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        <div class="space-y-4">
-                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Seu Nome
-                                (Indicador)</label>
-                            <input type="text" placeholder="Como te chamamos?"
-                                class="w-full bg-transparent border-b border-offwhite/20 py-4 focus:border-gold outline-none transition-colors"
-                                required>
+                        <div class="flex flex-col gap-4">
+                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Seu Nome</label>
+                            <input type="text" placeholder="Nome completo"
+                                class="bg-transparent border-b border-offwhite/10 py-4 focus:border-gold outline-none transition-colors text-offwhite">
                         </div>
-                        <div class="space-y-4">
-                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Seu Contato
-                                (WhatsApp)</label>
+                        <div class="flex flex-col gap-4">
+                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Seu
+                                WhatsApp</label>
                             <input type="tel" placeholder="(16) 99999-9999"
-                                class="w-full bg-transparent border-b border-offwhite/20 py-4 focus:border-gold outline-none transition-colors"
-                                required>
+                                class="bg-transparent border-b border-offwhite/10 py-4 focus:border-gold outline-none transition-colors text-offwhite">
                         </div>
                     </div>
-
-                    <div
-                        class="h-px bg-offwhite/5 w-full my-8 text-center text-[10px] opacity-20 uppercase tracking-[0.5em]">
-                        Dados da Indicação</div>
-
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        <div class="space-y-4">
-                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Nome da Marca
+                        <div class="flex flex-col gap-4">
+                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Marca
                                 Indicada</label>
-                            <input type="text" placeholder="Quem você está indicando?"
-                                class="w-full bg-transparent border-b border-offwhite/20 py-4 focus:border-gold outline-none transition-colors"
-                                required>
+                            <input type="text" placeholder="Nome da empresa"
+                                class="bg-transparent border-b border-offwhite/10 py-4 focus:border-gold outline-none transition-colors text-offwhite">
                         </div>
-                        <div class="space-y-4">
-                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Contato do
-                                Responsável</label>
-                            <input type="text" placeholder="WhatsApp ou E-mail da marca"
-                                class="w-full bg-transparent border-b border-offwhite/20 py-4 focus:border-gold outline-none transition-colors"
-                                required>
+                        <div class="flex flex-col gap-4">
+                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Contato
+                                deles</label>
+                            <input type="text" placeholder="WhatsApp ou E-mail"
+                                class="bg-transparent border-b border-offwhite/10 py-4 focus:border-gold outline-none transition-colors text-offwhite">
                         </div>
                     </div>
-
                     <div class="pt-12 flex justify-center">
                         <button type="submit"
                             class="bg-gold text-charcoal px-16 py-6 text-sm font-bold uppercase tracking-[0.3em] hover:bg-offwhite transition-all">
@@ -271,35 +270,36 @@
         </section>
     </main>
 
-    <footer class="py-12 border-t border-offwhite/10 text-center">
+    <footer class="py-12 border-t border-offwhite/10 text-center bg-charcoal">
         <p class="text-[10px] uppercase tracking-widest opacity-30">© 2026 DOGUI · Ribeirão Preto</p>
     </footer>
 
     <script>
-        // Cursor Logic
+        // Cursor Logic (Index Parity)
         const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX - 25 + 'px';
-            cursor.style.top = e.clientY - 25 + 'px';
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) rotate(-15deg)`;
         });
 
+        document.addEventListener('mousedown', () => cursor.classList.add('pressed'));
+        document.addEventListener('mouseup', () => cursor.classList.remove('pressed'));
+
         document.querySelectorAll('a, button').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+            el.addEventListener('mouseenter', () => cursor.style.opacity = "0.5");
+            el.addEventListener('mouseleave', () => cursor.style.opacity = "1");
         });
 
         // Mobile Menu Logic
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
-        let isMenuOpen = false;
+        let isOpen = false;
 
         function toggleMobileMenu() {
-            isMenuOpen = !isMenuOpen;
-            mobileMenu.classList.toggle('translate-x-full', !isMenuOpen);
-            mobileMenu.classList.toggle('translate-x-0', isMenuOpen);
-
+            isOpen = !isOpen;
+            mobileMenu.classList.toggle('translate-x-full', !isOpen);
+            mobileMenu.classList.toggle('translate-x-0', isOpen);
             const spans = menuToggle.querySelectorAll('span');
-            if (isMenuOpen) {
+            if (isOpen) {
                 spans[0].style.transform = 'translateY(8px) rotate(45deg)';
                 spans[1].style.opacity = '0';
                 spans[2].style.transform = 'translateY(-8px) rotate(-45deg)';
@@ -308,23 +308,21 @@
                 spans[1].style.opacity = '1';
                 spans[2].style.transform = 'none';
             }
-            document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
+            document.body.style.overflow = isOpen ? 'hidden' : 'auto';
         }
 
-        if (menuToggle) {
-            menuToggle.addEventListener('click', toggleMobileMenu);
-        }
+        menuToggle.addEventListener('click', toggleMobileMenu);
 
-        // IntersectionObserver for reveals
-        const revealObserver = new IntersectionObserver((entries) => {
+        // Reveals
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('reveal-active');
                 }
             });
-        }, { threshold: 0.15 });
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.reveal-text').forEach(el => revealObserver.observe(el));
+        document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
     </script>
 </body>
 
