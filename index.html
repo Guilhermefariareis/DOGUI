@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOGUI | O Instinto Move o Mercado</title>
+    <!-- SEO -->
+    <meta name="description"
+        content="DOGUI: Ativações estratégicas e presença local para marcas e franquias em Ribeirão Preto. Presença é território.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: "#0c0c0c",
+                        offwhite: "#fdfdfd",
+                        gold: "#c5a059",
+                    },
+                    fontFamily: {
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+                        serif: ['"DM Serif Display"', 'serif'],
+                    },
+                    letterSpacing: {
+                        'architectural': '0.15em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --charcoal: #0c0c0c;
+            --offwhite: #fdfdfd;
+            --gold: #c5a059;
+        }
+
+        /* Micro-noise Texture */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Custom Cursor - Dog Paw */
+        *,
+        *::before,
+        *::after {
+            cursor: none !important;
+        }
+
+        /* Force none on ALL interactive elements — browsers override * sometimes */
+        a,
+        button,
+        label,
+        input,
+        select,
+        textarea,
+        [onclick],
+        [role="button"],
+        summary {
+            cursor: none !important;
+        }
+
+        #cursor {
+            width: 44px;
+            height: 44px;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            transition: transform 0.12s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+            filter: drop-shadow(0 0 4px rgba(197, 160, 89, 0.5));
+            will-change: transform;
+        }
+
+        #cursor.pressed {
+            transform: translate(-50%, -50%) rotate(-15deg) scale(0.82);
+        }
+
+        @media (hover: none) {
+            * {
+                cursor: auto;
+            }
+
+            #cursor {
+                display: none;
+            }
+        }
+
+        /* Brutalist Layout Elements */
+        .line-motif {
+            position: absolute;
+            background: rgba(197, 160, 89, 0.2);
+            height: 1px;
+            width: 100%;
+            transform-origin: left;
+        }
+
+        /* Smooth BG Transitions */
+        .section-transition {
+            transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1), color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Typographic Scale Classes */
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-marquee {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        /* bg-offwhite color override for transition */
+        .bg-offwhite {
+            background-color: var(--offwhite);
+        }
+
+        .text-charcoal {
+            color: var(--charcoal);
+        }
+
+        .text-offwhite {
+            color: var(--offwhite);
+        }
+
+        .btn-slide {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Reveal Animation */
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .reveal-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn-slide::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: currentColor;
+            transform: translateX(-101%);
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .btn-slide:hover::after {
+            transform: translateX(0);
+        }
+
+
+        /* ── HERO LIGHT SWEEP ── */
+        @keyframes lightSweep {
+            0% {
+                transform: translateX(-120%) skewX(-18deg);
+                opacity: 0;
+            }
+
+            4% {
+                opacity: 1;
+            }
+
+            25% {
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(320%) skewX(-18deg);
+                opacity: 0;
+            }
+        }
+
+        .hero-light-sweep {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 35%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(253, 253, 253, 0.03) 45%,
+                    rgba(197, 160, 89, 0.02) 55%,
+                    transparent 100%);
+            animation: lightSweep 16s ease-in-out infinite;
+            animation-delay: 4s;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* ── BITE NOTCH — brand divider signature ── */
+        .bite-line {
+            position: relative;
+            height: 1px;
+            background: rgba(197, 160, 89, 0.22);
+            width: 100%;
+        }
+
+        .bite-line::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: -3px;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 7px;
+            background: var(--charcoal);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 55%, 50% 100%, 0% 55%);
+        }
+
+        /* ── PREFERS-REDUCED-MOTION ── */
+        @media (prefers-reduced-motion: reduce) {
+            .hero-light-sweep {
+                animation: none !important;
+            }
+
+            #particles-canvas {
+                display: none !important;
+            }
+
+            .reveal-text {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* ── MICRO-PARTICLES CANVAS ── */
+        #particles-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        /* GPU layer para light sweep */
+        .hero-light-sweep {
+            will-change: transform;
+        }
+
+        /* ── MARCAS PARCEIRAS ── */
+        .brand-logo-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.82;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .brand-logo-wrap:hover {
+            opacity: 1;
+            transform: scale(1.07);
+        }
+
+        .brand-logo {
+            height: 80px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* ── NÚMEROS / STATS ── */
+        .stat-number {
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: var(--gold);
+        }
+
+        /* ── POR QUE A DOGUI ── */
+        .reason-card {
+            padding: 2.5rem;
+            border: 1px solid rgba(197, 160, 89, 0.15);
+            transition: border-color 0.4s ease, background 0.4s ease;
+        }
+
+        .reason-card:hover {
+            border-color: rgba(197, 160, 89, 0.5);
+            background: rgba(197, 160, 89, 0.04);
+        }
+
+        .reason-icon {
+            width: 44px;
+            height: 44px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        /* ── WHATSAPP FLUTUANTE ── */
+        #whatsapp-btn {
+            position: fixed;
+            bottom: 5.5rem;
+            right: 2.5rem;
+            z-index: 998;
+            width: 56px;
+            height: 56px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+
+        #whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 28px rgba(37, 211, 102, 0.55);
+        }
+
+        #whatsapp-btn::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(37, 211, 102, 0.35);
+            animation: waPulse 2.2s ease-out infinite;
+        }
+
+        @keyframes waPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(2.2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-charcoal text-offwhite font-sans selection:bg-gold selection:text-charcoal overflow-x-hidden">
+
+    <!-- Dog Paw Cursor -->
+    <div id="cursor" class="hidden md:block" aria-hidden="true">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Main pad -->
+            <ellipse cx="32" cy="42" rx="13" ry="10" fill="#c5a059" />
+            <!-- Top-left toe -->
+            <ellipse cx="16" cy="28" rx="6" ry="7" fill="#c5a059" />
+            <!-- Top-center toe -->
+            <ellipse cx="27" cy="22" rx="6" ry="7" fill="#c5a059" />
+            <!-- Top-right-center toe -->
+            <ellipse cx="38" cy="22" rx="6" ry="7" fill="#c5a059" />
+            <!-- Top-right toe -->
+            <ellipse cx="49" cy="28" rx="6" ry="7" fill="#c5a059" />
+        </svg>
+    </div>
+
+    <!-- LOGO FIXO (Acompanha o scroll apenas no Desktop) -->
+    <div class="fixed top-8 left-12 z-[100] mix-blend-difference pointer-events-none hidden md:block">
+        <div class="text-2xl font-bold tracking-[0.3em] font-sans pointer-events-auto">DOGUI</div>
+    </div>
+
+    <!-- HEADER / NAV (Fica no topo, some ao rolar) -->
+    <header class="absolute top-0 left-0 w-full z-[90] mix-blend-difference py-8 px-6 md:px-12">
+        <div class="flex items-center justify-between md:justify-center relative">
+
+            <!-- Logo Mobile (Fica no topo, não desce) -->
+            <div class="md:hidden text-2xl font-bold tracking-[0.3em] font-sans">DOGUI</div>
+
+            <!-- Nav Desktop -->
+            <nav class="hidden md:flex space-x-12 text-sm font-medium tracking-widest uppercase">
+                <a href="#work" class="hover:text-gold transition-colors">Serviços</a>
+                <a href="#method" class="hover:text-gold transition-colors">Método</a>
+                <a href="#about" class="hover:text-gold transition-colors">Sobre</a>
+                <a href="#contact" class="hover:text-gold transition-colors">Contato</a>
+            </nav>
+
+            <!-- Botão Hambúrguer (Mobile Only) -->
+            <button id="menu-toggle" class="md:hidden flex flex-col gap-1.5 z-[110]" aria-label="Abrir Menu">
+                <span class="w-6 h-0.5 bg-offwhite transition-all duration-300"></span>
+                <span class="w-6 h-0.5 bg-offwhite transition-all duration-300"></span>
+                <span class="w-6 h-0.5 bg-offwhite transition-all duration-300"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MENU MOBILE OVERLAY -->
+    <div id="mobile-menu"
+        class="fixed inset-0 z-[100] bg-charcoal translate-x-full transition-transform duration-500 md:hidden flex flex-col items-center justify-center p-12">
+        <nav class="flex flex-col items-center gap-12 text-2xl font-bold tracking-[0.2em] uppercase">
+            <a href="#work" onclick="toggleMobileMenu()">Serviços</a>
+            <a href="#method" onclick="toggleMobileMenu()">Método</a>
+            <a href="#about" onclick="toggleMobileMenu()">Sobre</a>
+            <a href="#contact" onclick="toggleMobileMenu()">Contato</a>
+        </nav>
+        <div class="absolute bottom-12 flex gap-8 opacity-40 text-[10px] uppercase tracking-widest">
+            <span>Ribeirão Preto</span>
+            <span>•</span>
+            <span>Estúdio Dogui</span>
+        </div>
+    </div>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="hero"
+            class="relative min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden section-transition">
+
+            <!-- HERO: Diagonal editorial light sweep -->
+            <div class="hero-light-sweep" aria-hidden="true"></div>
+
+            <!-- HERO: Micro-particles ambient background -->
+            <canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+            <!-- Background Line Motif -->
+            <div class="line-motif top-[30%] -left-[10%] w-[120%] rotate-[2deg] parallax" data-speed="0.05"></div>
+
+            <div class="relative z-10 max-w-7xl mx-auto w-full">
+                <h1 id="hero-title"
+                    class="hero-title text-[clamp(3rem,12vw,9rem)] leading-[0.9] font-bold tracking-tighter mb-4 uppercase">
+                    O Instinto <br> Move o Mercado.
+                </h1>
+
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                    <p class="text-lg md:text-2xl max-w-xl font-light leading-relaxed opacity-80">
+                        Ativações estratégicas e presença local para marcas e franquias em Ribeirão Preto.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-6">
+                        <a href="#contact"
+                            class="bg-offwhite text-charcoal min-h-[56px] flex items-center justify-center px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-gold hover:text-offwhite transition-all transform hover:-translate-y-1">
+                            Solicitar Diagnóstico
+                        </a>
+                        <a href="#method"
+                            class="border border-offwhite/30 min-h-[56px] flex items-center justify-center px-8 py-4 text-sm font-bold uppercase tracking-widest hover:border-gold hover:text-gold transition-all btn-slide">
+                            Ver o Método
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-30">
+                <span class="text-[10px] uppercase tracking-[0.5em]">Rolar</span>
+                <div class="w-px h-12 bg-offwhite"></div>
+            </div>
+        </section>
+
+        <!-- BITE NOTCH DIVIDER: Hero → Trust Strip -->
+        <div class="bite-line" aria-hidden="true"></div>
+
+        <!-- TRUST STRIP -->
+        <section class="py-12 border-b border-offwhite/10 overflow-hidden bg-charcoal">
+            <div class="flex whitespace-nowrap animate-marquee">
+                <div
+                    class="flex items-center gap-12 px-12 text-[10px] uppercase tracking-[0.4em] font-medium text-offwhite/60">
+                    <span>Rede de criadores locais</span>
+                    <span class="text-gold opacity-50">•</span>
+                    <span>Playbooks de ativação</span>
+                    <span class="text-gold opacity-50">•</span>
+                    <span>Orquestração de eventos</span>
+                    <span class="text-gold opacity-50">•</span>
+                    <span>Presença de marca</span>
+                    <span class="text-gold opacity-50">•</span>
+                    <span>Ativações estratégicas</span>
+                </div>
+                <!-- Duplicado para loop contínuo -->
+                <div
+                    class="flex items-center gap-12 px-12 text-[10px] uppercase tracking-[0.4em] font-medium text-offwhite/60">
+                    <span>Rede de criadores locais</span>
+                    <span class="text-gold opacity-50">•</span>
+                    <span>Playbooks de ativação</span>
+                    <span class="text-gold opacity-50">•</span>
+                    <span>Orquestração de eventos</span>
+                    <span class="text-gold opacity-50">•</span>
+                    <span>Presença de marca</span>
+                    <span class="text-gold opacity-50">•</span>
+                    <span>Ativações estratégicas</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- MARCAS PARCEIRAS -->
+        <section class="py-10 px-6 md:px-12 bg-white">
+            <div class="max-w-7xl mx-auto">
+                <p class="text-[10px] uppercase tracking-[0.5em] text-charcoal/40 text-center mb-10">
+                    Marcas que já trabalhamos
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-16 md:gap-28">
+
+                    <!-- Pizza Prime -->
+                    <a href="#" class="brand-logo-wrap" aria-label="Pizza Prime">
+                        <img src="logo/logo_pizza_prime.png" alt="Pizza Prime" class="brand-logo" />
+                    </a>
+
+                    <!-- Mana Poke -->
+                    <a href="#" class="brand-logo-wrap" aria-label="Mana Poke">
+                        <img src="logo/logo_mana_poke.png" alt="Mana Poke" class="brand-logo" />
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- NÚMEROS QUE PROVAM -->
+        <!-- WHAT WE DO -->
+        <section id="work" class="py-24 px-6 md:px-12 bg-charcoal section-transition">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+                    <h2 class="text-4xl md:text-6xl font-bold uppercase leading-none tracking-tighter">
+                        O Que <br> a DOGUI Faz.
+                    </h2>
+                    <p class="max-w-xs text-sm uppercase tracking-widest leading-relaxed opacity-60">
+                        Quatro frentes de atuação para fazer a cidade falar de você.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-offwhite/10 border border-offwhite/10">
+                    <!-- Card 1 -->
+                    <div
+                        class="group bg-charcoal p-10 min-h-[380px] flex flex-col justify-between hover:bg-gold/5 transition-all duration-700">
+                        <span class="text-gold font-bold text-lg mb-8">01</span>
+                        <div>
+                            <h3
+                                class="text-2xl font-bold uppercase tracking-tight mb-4 group-hover:text-gold transition-colors">
+                                Conexão com <br> Influenciadores</h3>
+                            <p class="text-sm opacity-60 leading-relaxed mb-6">Selecionamos os creators certos para cada
+                                marca, criamos o briefing estratégico e coordenamos toda a ação — do primeiro contato à
+                                entrega.</p>
+                            <div class="h-px w-0 group-hover:w-full bg-gold transition-all duration-700"></div>
+                            <p
+                                class="mt-4 text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                                Creator certo • Briefing estratégico</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div
+                        class="group bg-charcoal p-10 min-h-[380px] flex flex-col justify-between hover:bg-gold/5 transition-all duration-700">
+                        <span class="text-gold font-bold text-lg mb-8">02</span>
+                        <div>
+                            <h3
+                                class="text-2xl font-bold uppercase tracking-tight mb-4 group-hover:text-gold transition-colors">
+                                Ativações e <br> Inaugurações</h3>
+                            <p class="text-sm opacity-60 leading-relaxed mb-6">Planejamento e execução de eventos —
+                                coquetéis, lançamentos, collabs. Transformamos a abertura de uma loja em um
+                                acontecimento que gera buzz real.</p>
+                            <div class="h-px w-0 group-hover:w-full bg-gold transition-all duration-700"></div>
+                            <p
+                                class="mt-4 text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                                Eventos • Lançamentos • Collabs</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div
+                        class="group bg-charcoal p-10 min-h-[380px] flex flex-col justify-between hover:bg-gold/5 transition-all duration-700">
+                        <span class="text-gold font-bold text-lg mb-8">03</span>
+                        <div>
+                            <h3
+                                class="text-2xl font-bold uppercase tracking-tight mb-4 group-hover:text-gold transition-colors">
+                                Posicionamento <br> Local</h3>
+                            <p class="text-sm opacity-60 leading-relaxed mb-6">Criamos presença, narrativa e percepção
+                                de marca em Ribeirão Preto. Estratégia de longo prazo para franquias e marcas que querem
+                                dominar sua região.</p>
+                            <div class="h-px w-0 group-hover:w-full bg-gold transition-all duration-700"></div>
+                            <p
+                                class="mt-4 text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                                Narrativa • Território • Percepção</p>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div
+                        class="group bg-charcoal p-10 min-h-[380px] flex flex-col justify-between hover:bg-gold/5 transition-all duration-700">
+                        <span class="text-gold font-bold text-lg mb-8">04</span>
+                        <div>
+                            <h3
+                                class="text-2xl font-bold uppercase tracking-tight mb-4 group-hover:text-gold transition-colors">
+                                Gestão <br> de Buzz</h3>
+                            <p class="text-sm opacity-60 leading-relaxed mb-6">Ações coordenadas para fazer a marca ser
+                                vista, comentada e lembrada. Do digital ao físico, criamos o momento que se propaga
+                                sozinho.</p>
+                            <div class="h-px w-0 group-hover:w-full bg-gold transition-all duration-700"></div>
+                            <p
+                                class="mt-4 text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                                Vista • Comentada • Lembrada</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDITORIAL SERIF (MANIFESTO) -->
+        <section class="py-32 px-6 md:px-12 bg-offwhite text-charcoal section-transition overflow-hidden relative">
+            <div class="absolute top-0 left-0 w-full h-[1px] bg-gold/30"></div>
+            <div class="max-w-7xl mx-auto text-center relative z-10">
+                <span class="text-[10px] uppercase tracking-[0.6em] mb-12 block font-bold opacity-40">O Manifesto</span>
+                <h2 class="text-[clamp(2.5rem,8vw,6rem)] font-serif leading-[1.1] mb-12 reveal-text">
+                    "Presença não é visibilidade. <br> Presença é território."
+                </h2>
+                <div class="w-24 h-px bg-gold mx-auto mb-12"></div>
+                <p class="max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed opacity-70">
+                    No mercado de Ribeirão Preto, ser visto é o básico. <br> Dominar a conversa e ocupar espaço físico e
+                    digital é onde o jogo realmente começa.
+                </p>
+            </div>
+            <div class="absolute -bottom-24 -right-12 w-96 h-96 border border-gold/10 rounded-full opacity-20"></div>
+        </section>
+
+        <!-- MÉTODO (DARK) -->
+        <section id="method"
+            class="py-24 px-6 md:px-12 bg-charcoal text-offwhite section-transition border-t border-offwhite/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-16">
+                    <span class="text-[10px] uppercase tracking-[0.5em] opacity-40 mb-4 block">Como Trabalhamos</span>
+                    <h2 class="text-4xl md:text-6xl font-bold uppercase tracking-tighter">O Método.</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-0 border border-offwhite/10">
+                    <!-- Passo 01 -->
+                    <div class="method-step group cursor-pointer border-b md:border-r border-offwhite/10 p-12 hover:bg-gold/5 transition-all duration-500"
+                        onclick="toggleStep(0)">
+                        <div class="flex items-baseline justify-between gap-4 mb-2">
+                            <div class="flex items-baseline gap-4">
+                                <span class="text-gold font-bold text-lg">01</span>
+                                <h3 class="text-xl font-bold uppercase tracking-tight">Diagnóstico</h3>
+                            </div>
+                            <span class="text-gold text-2xl font-light step-icon">+</span>
+                        </div>
+                        <div class="h-px bg-offwhite/10 w-full my-4"></div>
+                        <div
+                            class="step-details max-h-0 overflow-hidden transition-all duration-500 text-sm leading-relaxed opacity-60">
+                            Entendemos profundamente a marca, o mercado e o gap de presença em Ribeirão Preto. Antes de
+                            agir, ouvimos.
+                        </div>
+                    </div>
+                    <!-- Passo 02 -->
+                    <div class="method-step group cursor-pointer border-b border-offwhite/10 p-12 hover:bg-gold/5 transition-all duration-500"
+                        onclick="toggleStep(1)">
+                        <div class="flex items-baseline justify-between gap-4 mb-2">
+                            <div class="flex items-baseline gap-4">
+                                <span class="text-gold font-bold text-lg">02</span>
+                                <h3 class="text-xl font-bold uppercase tracking-tight">Curadoria</h3>
+                            </div>
+                            <span class="text-gold text-2xl font-light step-icon">+</span>
+                        </div>
+                        <div class="h-px bg-offwhite/10 w-full my-4"></div>
+                        <div
+                            class="step-details max-h-0 overflow-hidden transition-all duration-500 text-sm leading-relaxed opacity-60">
+                            Selecionamos cirurgicamente os creators, canais e parceiros que têm fit real com o DNA da
+                            marca.
+                        </div>
+                    </div>
+                    <!-- Passo 03 -->
+                    <div class="method-step group cursor-pointer border-b md:border-r border-offwhite/10 p-12 hover:bg-gold/5 transition-all duration-500"
+                        onclick="toggleStep(2)">
+                        <div class="flex items-baseline justify-between gap-4 mb-2">
+                            <div class="flex items-baseline gap-4">
+                                <span class="text-gold font-bold text-lg">03</span>
+                                <h3 class="text-xl font-bold uppercase tracking-tight">Briefing</h3>
+                            </div>
+                            <span class="text-gold text-2xl font-light step-icon">+</span>
+                        </div>
+                        <div class="h-px bg-offwhite/10 w-full my-4"></div>
+                        <div
+                            class="step-details max-h-0 overflow-hidden transition-all duration-500 text-sm leading-relaxed opacity-60">
+                            Alinhamento estratégico com todos os envolvidos. Garantimos que a ativação seja um
+                            movimento, não apenas um "post".
+                        </div>
+                    </div>
+                    <!-- Passo 04 -->
+                    <div class="method-step group cursor-pointer border-b border-offwhite/10 p-12 hover:bg-gold/5 transition-all duration-500"
+                        onclick="toggleStep(3)">
+                        <div class="flex items-baseline justify-between gap-4 mb-2">
+                            <div class="flex items-baseline gap-4">
+                                <span class="text-gold font-bold text-lg">04</span>
+                                <h3 class="text-xl font-bold uppercase tracking-tight">Ativação</h3>
+                            </div>
+                            <span class="text-gold text-2xl font-light step-icon">+</span>
+                        </div>
+                        <div class="h-px bg-offwhite/10 w-full my-4"></div>
+                        <div
+                            class="step-details max-h-0 overflow-hidden transition-all duration-500 text-sm leading-relaxed opacity-60">
+                            Execução impecável — seja um evento físico, uma collab digital ou uma campanha coordenada
+                            com influenciadores.
+                        </div>
+                    </div>
+                    <!-- Passo 05 -->
+                    <div class="method-step group cursor-pointer md:border-r border-b md:border-b-0 border-offwhite/10 p-12 hover:bg-gold/5 transition-all duration-500"
+                        onclick="toggleStep(4)">
+                        <div class="flex items-baseline justify-between gap-4 mb-2">
+                            <div class="flex items-baseline gap-4">
+                                <span class="text-gold font-bold text-lg">05</span>
+                                <h3 class="text-xl font-bold uppercase tracking-tight">Amplificação</h3>
+                            </div>
+                            <span class="text-gold text-2xl font-light step-icon">+</span>
+                        </div>
+                        <div class="h-px bg-offwhite/10 w-full my-4"></div>
+                        <div
+                            class="step-details max-h-0 overflow-hidden transition-all duration-500 text-sm leading-relaxed opacity-60">
+                            Estratégias pós-evento para garantir longevidade ao impacto — reposts, cobertura, conteúdo
+                            gerado pela audiência.
+                        </div>
+                    </div>
+                    <!-- Passo 06 -->
+                    <div class="method-step group cursor-pointer p-12 hover:bg-gold/5 transition-all duration-500"
+                        onclick="toggleStep(5)">
+                        <div class="flex items-baseline justify-between gap-4 mb-2">
+                            <div class="flex items-baseline gap-4">
+                                <span class="text-gold font-bold text-lg">06</span>
+                                <h3 class="text-xl font-bold uppercase tracking-tight">Resultado</h3>
+                            </div>
+                            <span class="text-gold text-2xl font-light step-icon">+</span>
+                        </div>
+                        <div class="h-px bg-offwhite/10 w-full my-4"></div>
+                        <div
+                            class="step-details max-h-0 overflow-hidden transition-all duration-500 text-sm leading-relaxed opacity-60">
+                            Mensuração de alcance real, engajamento qualitativo e território conquistado. Clareza sobre
+                            o que foi gerado.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NÚMEROS QUE PROVAM (Light & Animated) -->
+        <section class="py-12 px-6 md:px-12 bg-white text-charcoal">
+            <div class="max-w-7xl mx-auto">
+                <p class="text-[10px] uppercase tracking-[0.5em] text-charcoal/30 text-center mb-10">Resultados que
+                    falam por si</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-px md:bg-charcoal/5">
+
+                    <div class="bg-white p-8 flex flex-col items-center text-center gap-3">
+                        <div class="flex items-baseline text-gold">
+                            <span class="stat-number" data-target="18">0</span>
+                            <span class="text-3xl font-bold ml-1">+</span>
+                        </div>
+                        <span
+                            class="text-[11px] uppercase tracking-[0.3em] text-charcoal/50 leading-relaxed">Marcas<br>Ativadas</span>
+                    </div>
+
+                    <div class="bg-white p-8 flex flex-col items-center text-center gap-3">
+                        <div class="flex items-baseline text-gold">
+                            <span class="stat-number" data-target="60">0</span>
+                            <span class="text-3xl font-bold ml-1">+</span>
+                        </div>
+                        <span
+                            class="text-[11px] uppercase tracking-[0.3em] text-charcoal/50 leading-relaxed">Ativações<br>Realizadas</span>
+                    </div>
+
+                    <div class="bg-white p-8 flex flex-col items-center text-center gap-3">
+                        <div class="flex items-baseline text-gold">
+                            <span class="stat-number" data-target="100">0</span>
+                            <span class="text-3xl font-bold ml-1">%</span>
+                        </div>
+                        <span
+                            class="text-[11px] uppercase tracking-[0.3em] text-charcoal/50 leading-relaxed">Clientes<br>Renovaram</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBRE (DARK) -->
+        <section id="about" class="py-24 px-6 md:px-12 bg-charcoal section-transition border-t border-offwhite/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row gap-16 items-start">
+                    <!-- Lado esquerdo -->
+                    <div class="w-full md:w-1/2">
+                        <span class="text-[10px] uppercase tracking-[0.5em] opacity-40 mb-6 block">Sobre a DOGUI</span>
+                        <h2
+                            class="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-none mb-12 reveal-text">
+                            Onde o instinto <br> encontra a <br> estratégia.
+                        </h2>
+                        <!-- Citação de impacto -->
+                        <blockquote class="border-l-2 border-gold pl-8 mt-12">
+                            <p class="text-xl font-serif italic leading-relaxed opacity-80">
+                                "DOGUI conecta marcas a pessoas. Criamos ativações, eventos e estratégias que fazem a
+                                cidade falar de você."
+                            </p>
+                        </blockquote>
+                    </div>
+                    <!-- Lado direito -->
+                    <div class="w-full md:w-1/2 pt-4 md:pt-20">
+                        <p class="text-xl font-light leading-relaxed mb-8 opacity-80">
+                            A DOGUI é uma agência de ativações estratégicas e conexões locais, nascida em Ribeirão Preto
+                            para preencher a lacuna entre grandes marcas e a alma vibrante da cidade.
+                        </p>
+                        <p class="text-base font-light leading-relaxed opacity-60 mb-12">
+                            Nós ajudamos marcas e franquias a se tornarem visíveis na cidade, gerarem buzz real, se
+                            conectarem com o público certo e se posicionarem como referência. Não fazemos propaganda —
+                            criamos território.
+                        </p>
+                        <!-- Linha de tagline -->
+                        <div class="border-t border-offwhite/10 pt-8">
+                            <p class="text-xs uppercase tracking-[0.4em] opacity-50 mb-2">Nossa síntese</p>
+                            <p class="text-lg font-bold uppercase tracking-wider text-gold">
+                                Ativações estratégicas. Influência real. Presença local.
+                            </p>
+                        </div>
+                        <!-- Local -->
+                        <div class="flex items-center gap-4 group mt-12">
+                            <div class="w-12 h-[1px] bg-gold group-hover:w-16 transition-all"></div>
+                            <span class="text-xs uppercase tracking-widest font-bold opacity-60">Ribeirão Preto, SP ·
+                                Brasil</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- POR QUE A DOGUI? -->
+        <section class="py-20 px-6 md:px-12 bg-white text-charcoal">
+            <div class="max-w-7xl mx-auto">
+
+                <div class="mb-12">
+                    <p class="text-[10px] uppercase tracking-[0.5em] text-gold/70 mb-6 font-bold">Por que a DOGUI?</p>
+                    <h2
+                        class="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-none max-w-2xl text-charcoal">
+                        3 motivos para a sua marca<br>entrar em contato agora.
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-charcoal/10">
+
+                    <!-- Motivo 1 -->
+                    <div class="reason-card bg-white">
+                        <div class="reason-icon border-gold/30">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                                <circle cx="12" cy="9" r="2.5" />
+                            </svg>
+                        </div>
+                        <span class="text-gold text-xs font-bold uppercase tracking-widest mb-4 block">01 &mdash;
+                            Território</span>
+                        <h3 class="text-xl font-bold uppercase tracking-tight mb-4 text-charcoal">Ribeirão é o nosso
+                            quintal</h3>
+                        <p class="text-sm text-charcoal/60 leading-relaxed">
+                            Não terceirizamos o conhecimento local. Sabemos quais pontos de tráfego convertem, quais
+                            datas movem a cidade e quais criadores o seu público já segue &mdash; e usamos isso a favor
+                            da sua marca.
+                        </p>
+                    </div>
+
+                    <!-- Motivo 2 -->
+                    <div class="reason-card bg-white">
+                        <div class="reason-icon border-gold/30">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </div>
+                        <span class="text-gold text-xs font-bold uppercase tracking-widest mb-4 block">02 &mdash;
+                            Execução</span>
+                        <h3 class="text-xl font-bold uppercase tracking-tight mb-4 text-charcoal">Do estratégico ao
+                            operacional</h3>
+                        <p class="text-sm text-charcoal/60 leading-relaxed">
+                            Você aprova o plano e acompanha os resultados. A DOGUI cuida do resto: estratégia, criação,
+                            seleção de criadores, execução em campo e mensuração &mdash; sem dor de cabeça de gestão.
+                        </p>
+                    </div>
+
+                    <!-- Motivo 3 -->
+                    <div class="reason-card bg-white">
+                        <div class="reason-icon border-gold/30">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <line x1="12" y1="1" x2="12" y2="23" />
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg>
+                        </div>
+                        <span class="text-gold text-xs font-bold uppercase tracking-widest mb-4 block">03 &mdash;
+                            Resultado</span>
+                        <h3 class="text-xl font-bold uppercase tracking-tight mb-4 text-charcoal">Marketing que aparece
+                            no caixa</h3>
+                        <p class="text-sm text-charcoal/60 leading-relaxed">
+                            Nada de métricas de vaidade. Cada ativação é planejada para gerar movimento real: novos
+                            clientes na loja, reconhecimento no bairro e conversas no WhatsApp da sua marca.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- CTA inline -->
+                <div
+                    class="mt-16 flex flex-col sm:flex-row gap-6 items-center justify-between border-t border-charcoal/10 pt-12">
+                    <p class="text-charcoal/50 text-sm max-w-md">Pronto para fazer Ribeirão Preto falar sobre a sua
+                        marca?</p>
+                    <a href="#contact"
+                        class="bg-gold text-charcoal px-10 py-4 text-sm font-bold uppercase tracking-widest hover:bg-charcoal hover:text-white transition-all whitespace-nowrap">
+                        Quero um diagnóstico &rarr;
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact"
+            class="py-24 px-6 md:px-12 bg-charcoal section-transition border-t border-offwhite/5 relative overflow-hidden">
+            <!-- Background "Dog" nudge - Abstract lines -->
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-[0.02] pointer-events-none">
+                <svg viewBox="0 0 100 100" class="w-full h-full stroke-gold fill-none stroke-[0.2]">
+                    <path d="M20,80 Q50,20 80,80 M30,50 L70,50" />
+                </svg>
+            </div>
+
+            <div class="max-w-4xl mx-auto relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-8 reveal-text">Ative Sua
+                        Presença.</h2>
+                    <p class="text-offwhite/60 tracking-widest uppercase text-xs">Transforme visibilidade em território
+                        em
+                        Ribeirão Preto.</p>
+                </div>
+
+                <form id="contact-form" class="space-y-12" onsubmit="saveFormData(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="space-y-4">
+                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Seu Nome</label>
+                            <input id="f-nome" type="text" placeholder="Nome Completo"
+                                class="w-full bg-transparent border-b border-offwhite/20 py-4 focus:border-gold outline-none transition-colors"
+                                required>
+                        </div>
+                        <div class="space-y-4">
+                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Empresa /
+                                Marca</label>
+                            <input id="f-empresa" type="text" placeholder="Nome da sua Marca"
+                                class="w-full bg-transparent border-b border-offwhite/20 py-4 focus:border-gold outline-none transition-colors"
+                                required>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="space-y-4">
+                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">WhatsApp</label>
+                            <input id="f-whatsapp" type="tel" placeholder="(16) 99999-9999"
+                                class="w-full bg-transparent border-b border-offwhite/20 py-4 focus:border-gold outline-none transition-colors"
+                                required>
+                        </div>
+                        <div class="space-y-4">
+                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Seu
+                                Objetivo</label>
+                            <select id="f-objetivo"
+                                class="w-full bg-transparent border-b border-offwhite/20 py-4 focus:border-gold outline-none transition-colors appearance-none"
+                                required>
+                                <option value="" class="bg-charcoal">Selecione um objetivo</option>
+                                <option class="bg-charcoal">Nova Ativação</option>
+                                <option class="bg-charcoal">Evento de Lançamento</option>
+                                <option class="bg-charcoal">Estratégia de Presença</option>
+                                <option class="bg-charcoal">Outro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Sinais de confiança próximos ao formulário -->
+                    <div
+                        class="flex items-center justify-center gap-6 opacity-30 text-[10px] uppercase tracking-widest">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 15.5l-3.5-3.5 1.41-1.41L11 13.67l4.59-4.59L17 10.5 11 16.5z" />
+                            </svg>
+                            <span>SSL Seguro</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                            </svg>
+                            <span>Verificado Localmente</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-8 flex flex-col items-center gap-8">
+                        <button type="submit"
+                            class="bg-gold text-offwhite min-h-[64px] px-16 py-6 text-sm font-bold uppercase tracking-[0.3em] hover:bg-offwhite hover:text-charcoal transition-all">
+                            Enviar Solicitação
+                        </button>
+                        <a href="https://wa.me/placeholder" target="_blank"
+                            class="text-[10px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity">
+                            Conversar pelo WhatsApp
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- WHATSAPP FLUTUANTE — troque o número abaixo pelo seu -->
+    <a id="whatsapp-btn"
+        href="https://wa.me/5516999999999?text=Ol%C3%A1%2C+vim+pelo+site+e+quero+saber+mais+sobre+a+DOGUI!"
+        target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+            <path
+                d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.1 1.523 5.824L.057 23.486a.5.5 0 0 0 .606.63l5.882-1.539A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.012-1.374l-.36-.214-3.732.977.997-3.647-.235-.374A9.818 9.818 0 1 1 12 21.818z" />
+        </svg>
+    </a>
+
+    <!-- Footer -->
+    <footer
+        class="py-12 px-6 md:px-12 bg-charcoal border-t border-offwhite/5 flex flex-col md:flex-row justify-between items-center gap-8">
+        <div class="text-xl font-bold tracking-[0.3em]">DOGUI</div>
+        <div class="text-[10px] uppercase tracking-widest opacity-40">
+            © 2026 DOGUI • RIBEIRÃO PRETO, SP • TODOS OS DIREITOS RESERVADOS
+        </div>
+        <div class="flex gap-8">
+            <a href="#"
+                class="text-[10px] uppercase tracking-widest opacity-40 hover:text-gold hover:opacity-100 transition-all">Instagram</a>
+            <a href="#"
+                class="text-[10px] uppercase tracking-widest opacity-40 hover:text-gold hover:opacity-100 transition-all">LinkedIn</a>
+        </div>
+    </footer>
+
+    <!-- MODAL -->
+    <div id="modal"
+        class="fixed inset-0 z-[100] bg-charcoal/90 backdrop-blur-sm hidden items-center justify-center p-6">
+        <div class="bg-charcoal border border-offwhite/10 p-8 md:p-12 max-w-2xl w-full relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-2xl hover:text-gold">&times;</button>
+            <span class="text-[10px] uppercase tracking-widest opacity-40 mb-4 block">Detalhe do Conceito</span>
+            <h3 id="modal-title" class="text-3xl md:text-4xl font-bold uppercase tracking-tighter mb-8">Título do Caso
+            </h3>
+            <div class="h-px bg-gold/30 w-full mb-8"></div>
+            <p id="modal-text" class="text-sm md:text-base font-light leading-relaxed opacity-60 mb-8">
+                Descrição detalhada do conceito estratégico e o impacto esperado para esta ativação no mercado local.
+            </p>
+            <button onclick="closeModal()"
+                class="text-xs font-bold uppercase border-b border-gold pb-1 text-gold">Fechar
+                Detalhe</button>
+        </div>
+    </div>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Voltar ao topo" style="
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            z-index: 999;
+            width: 48px;
+            height: 48px;
+            background: var(--gold);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            pointer-events: none;
+        ">
+        <!-- Arrow up -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script>
+        // Dog Paw Cursor Logic
+        const cursor = document.getElementById('cursor');
+        let mouseX = -100, mouseY = -100;
+        let curX = -100, curY = -100;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Smooth lerp follow for organic feel
+        function animateCursor() {
+            curX += (mouseX - curX) * 0.18;
+            curY += (mouseY - curY) * 0.18;
+            cursor.style.left = curX + 'px';
+            cursor.style.top = curY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Press effect - paw stamps
+        document.addEventListener('mousedown', () => cursor.classList.add('pressed'));
+        document.addEventListener('mouseup', () => cursor.classList.remove('pressed'));
+
+        // ── MICRO-PARTICLES (HERO) ──
+        (function () {
+            const canvas = document.getElementById('particles-canvas');
+            if (!canvas) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            const ctx = canvas.getContext('2d', { alpha: true });
+            let raf, W, H, mouse = { x: 0, y: 0 }, frame = 0;
+            const TOTAL = 25;
+            const GOLD = [197, 160, 89];
+            const WHITE = [240, 237, 232];
+            let particles = [];
+
+            function resize() {
+                const hero = document.getElementById('hero');
+                W = canvas.width = hero ? hero.offsetWidth : window.innerWidth;
+                H = canvas.height = hero ? hero.offsetHeight : window.innerHeight;
+            }
+
+            function rand(a, b) { return a + Math.random() * (b - a); }
+
+            function spawn() {
+                const isGold = Math.random() > 0.45;
+                const col = isGold ? GOLD : WHITE;
+                return {
+                    x: rand(0, W),
+                    y: rand(0, H),
+                    r: rand(0.4, isGold ? 1.6 : 1.1),         // size
+                    ox: 0, oy: 0,                               // mouse offset
+                    vx: rand(-0.12, 0.12),
+                    vy: rand(-0.18, -0.05),                     // drift upward slightly
+                    op: rand(0.04, isGold ? 0.22 : 0.12),      // base opacity
+                    life: rand(0, 1),                             // phase offset
+                    spd: rand(0.002, 0.006),                     // pulse speed
+                    col,
+                    depth: rand(0.3, 1.0),                        // parallax depth
+                };
+            }
+
+            function init() {
+                resize();
+                particles = Array.from({ length: TOTAL }, spawn);
+            }
+
+            document.addEventListener('mousemove', e => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+
+            function draw() {
+                raf = requestAnimationFrame(draw);
+
+                // 30fps cap — skip alternate frames
+                frame ^= 1;
+                if (frame) return;
+
+                ctx.clearRect(0, 0, W, H);
+
+                const cx = W / 2, cy = H / 2;
+                const dx = (mouse.x - cx) / cx;
+                const dy = (mouse.y - cy) / cy;
+
+                for (const p of particles) {
+                    // Gentle mouse parallax
+                    p.ox += (dx * p.depth * 14 - p.ox) * 0.03;
+                    p.oy += (dy * p.depth * 9 - p.oy) * 0.03;
+
+                    // Drift
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    // Pulse opacity
+                    p.life += p.spd;
+                    const alpha = p.op * (0.55 + 0.45 * Math.sin(p.life * Math.PI * 2));
+
+                    // Wrap edges
+                    if (p.y < -4) { p.y = H + 4; p.x = rand(0, W); }
+                    if (p.x < -4) p.x = W + 4;
+                    if (p.x > W + 4) p.x = -4;
+
+                    // Draw
+                    const [r, g, b] = p.col;
+                    ctx.beginPath();
+                    ctx.arc(p.x + p.ox, p.y + p.oy, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${r},${g},${b},${alpha.toFixed(2)})`;
+                    ctx.fill();
+                }
+            }
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) cancelAnimationFrame(raf);
+                else { frame = 0; draw(); }
+            });
+
+            window.addEventListener('resize', resize, { passive: true });
+            init();
+            draw();
+        })();
+
+        // ── BACK TO TOP ──
+        (function () {
+            const btn = document.getElementById('back-to-top');
+            if (!btn) return;
+            window.addEventListener('scroll', () => {
+                const show = window.scrollY > 400;
+                btn.style.opacity = show ? '1' : '0';
+                btn.style.transform = show ? 'translateY(0)' : 'translateY(16px)';
+                btn.style.pointerEvents = show ? 'auto' : 'none';
+            }, { passive: true });
+        })();
+
+        // Count unique sessions (sessionStorage prevents re-count on tab refresh)
+        if (!sessionStorage.getItem('dogui_visited')) {
+            sessionStorage.setItem('dogui_visited', '1');
+            const visits = parseInt(localStorage.getItem('dogui_visits') || '0') + 1;
+            localStorage.setItem('dogui_visits', visits);
+            // Track daily breakdown
+            const today = new Date().toLocaleDateString('pt-BR');
+            const daily = JSON.parse(localStorage.getItem('dogui_daily') || '{}');
+            daily[today] = (daily[today] || 0) + 1;
+            localStorage.setItem('dogui_daily', JSON.stringify(daily));
+        }
+
+        // ── FORM SAVE ──
+        function saveFormData(e) {
+            e.preventDefault();
+            const entry = {
+                id: Date.now(),
+                data: new Date().toLocaleString('pt-BR'),
+                nome: document.getElementById('f-nome').value,
+                empresa: document.getElementById('f-empresa').value,
+                whatsapp: document.getElementById('f-whatsapp').value,
+                objetivo: document.getElementById('f-objetivo').value
+            };
+            const submissions = JSON.parse(localStorage.getItem('dogui_submissions') || '[]');
+            submissions.unshift(entry); // newest first
+            localStorage.setItem('dogui_submissions', JSON.stringify(submissions));
+
+            // Visual feedback
+            const btn = document.querySelector('#contact-form button[type="submit"]');
+            btn.textContent = 'Solicitação Enviada ✓';
+            btn.classList.add('bg-green-700');
+            document.getElementById('contact-form').reset();
+            setTimeout(() => {
+                btn.textContent = 'Enviar Solicitação';
+                btn.classList.remove('bg-green-700');
+            }, 4000);
+        }
+
+        // Scroll-triggered Typography Scaling
+        const heroTitle = document.getElementById('hero-title');
+        window.addEventListener('scroll', () => {
+            const scroll = window.scrollY;
+            const scrollMax = 1000;
+            const progress = Math.min(scroll / scrollMax, 1);
+
+            // Scale smoothly 1.00 -> 1.08
+            const scale = 1 + (progress * 0.08);
+            // Tighten letter spacing slightly
+            const letterSpacing = -0.05 * progress;
+
+            heroTitle.style.transform = `scale(${scale})`;
+            heroTitle.style.letterSpacing = `${letterSpacing}em`;
+
+            // Parallax Lines
+            document.querySelectorAll('.parallax').forEach(line => {
+                const speed = line.getAttribute('data-speed');
+                line.style.transform = `translateY(${scroll * speed}px) rotate(2deg)`;
+            });
+        });
+
+        // Method Stepper Toggle
+        function toggleStep(index) {
+            const steps = document.querySelectorAll('.step-details');
+            steps.forEach((step, i) => {
+                const icon = step.closest('.method-step').querySelector('.step-icon');
+                const title = step.closest('.method-step').querySelector('h3');
+                if (i === index) {
+                    const isOpening = step.style.maxHeight === '0px' || !step.style.maxHeight;
+                    step.style.maxHeight = isOpening ? '200px' : '0px';
+                    step.style.paddingTop = isOpening ? '1rem' : '0';
+                    if (icon) icon.textContent = isOpening ? '−' : '+';
+                    if (title) title.classList.toggle('text-gold', isOpening);
+                } else {
+                    step.style.maxHeight = '0px';
+                    step.style.paddingTop = '0';
+                    if (icon) icon.textContent = '+';
+                    if (title) title.classList.remove('text-gold');
+                }
+            });
+        }
+
+        // Modal Logic
+        function openModal(title) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on click outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) closeModal();
+        }
+
+        // IntersectionObserver for reveals
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-active');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal-text').forEach(el => revealObserver.observe(el));
+
+        // ── MOBILE MENU LOGIC ──
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+
+        function toggleMobileMenu() {
+            isMenuOpen = !isMenuOpen;
+
+            // Toggle Overlay
+            mobileMenu.classList.toggle('translate-x-full', !isMenuOpen);
+            mobileMenu.classList.toggle('translate-x-0', isMenuOpen);
+
+            // Animate Hamburger to X
+            const spans = menuToggle.querySelectorAll('span');
+            if (isMenuOpen) {
+                spans[0].style.transform = 'translateY(8px) rotate(45deg)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+
+            // Prevent scroll when menu is open
+            document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
+        }
+
+        if (menuToggle) {
+            menuToggle.addEventListener('click', toggleMobileMenu);
+        }
+
+        // ── COUNTER ANIMATION ──
+        (function () {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+
+            const animate = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const inc = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc);
+                    setTimeout(() => animate(counter), 20);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animate(entry.target);
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(c => counterObserver.observe(c));
+        })();
+    </script>
+</body>
+
+</html>
