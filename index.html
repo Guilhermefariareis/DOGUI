@@ -399,15 +399,15 @@
             width: 100%;
             max-width: 600px;
             aspect-ratio: 1/1;
-            margin: auto;
+            margin: 6rem auto 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .paw-center {
-            width: 45%;
-            height: 35%;
+            width: clamp(180px, 40%, 250px);
+            height: clamp(150px, 30%, 200px);
             background: var(--gold);
             border-radius: 50% 50% 45% 45%;
             display: flex;
@@ -416,75 +416,116 @@
             justify-content: center;
             color: var(--charcoal);
             text-align: center;
-            padding: 2rem;
-            box-shadow: 0 20px 60px rgba(197, 160, 89, 0.2);
-            z-index: 5;
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            padding: 1.25rem;
+            box-shadow: 0 20px 60px rgba(197, 160, 89, 0.4);
+            z-index: 10;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            margin-top: 30%;
+            /* Space for toes above */
         }
 
         .paw-toe {
             position: absolute;
-            width: 22%;
-            height: 28%;
+            width: clamp(80px, 16%, 100px);
+            height: clamp(100px, 22%, 140px);
             background: var(--charcoal);
-            border: 1px solid rgba(197, 160, 89, 0.3);
+            border: 1px solid rgba(197, 160, 89, 0.4);
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 0.4rem;
             text-align: center;
             transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            z-index: 4;
-            backdrop-blur: 5px;
+            z-index: 5;
+            backdrop-filter: blur(10px);
         }
 
         .paw-toe:hover {
-            background: rgba(197, 160, 89, 0.1);
+            background: rgba(197, 160, 89, 0.2);
             border-color: var(--gold);
-            transform: scale(1.1) translateY(-10px);
+            transform: scale(1.1) translateY(-15px);
+            z-index: 20;
         }
 
-        /* Toe Positions (Absolute Arc) */
+        /* Toe Positions (Ultra Spread Arc) */
         .toe-1 {
             top: 10%;
-            left: 5%;
-            transform: rotate(-35deg);
+            left: -10%;
+            transform: rotate(-45deg);
         }
 
         .toe-2 {
-            top: 0%;
-            left: 32%;
-            transform: rotate(-10deg);
+            top: -15%;
+            left: 12%;
+            transform: rotate(-15deg);
         }
 
         .toe-3 {
-            top: 0%;
-            right: 32%;
-            transform: rotate(10deg);
+            top: -15%;
+            right: 12%;
+            transform: rotate(15deg);
         }
 
         .toe-4 {
             top: 10%;
-            right: 5%;
-            transform: rotate(35deg);
+            right: -10%;
+            transform: rotate(45deg);
         }
 
         .paw-toe span {
-            font-[Space Grotesk];
-            font-size: 0.6rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.55rem;
             text-transform: uppercase;
             letter-spacing: 0.2em;
             color: var(--gold);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.2rem;
         }
 
         .paw-toe h4 {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            line-height: 1.2;
+        }
+
+        @media (max-width: 768px) {
+            .paw-container {
+                margin: 8rem auto 2rem;
+                max-width: 320px;
+            }
+
+            .paw-center {
+                width: 160px;
+                height: 130px;
+                margin-top: 35%;
+                padding: 1rem;
+            }
+
+            .paw-center h3 {
+                font-size: 1.5rem;
+            }
+
+            .paw-toe {
+                width: 70px;
+                height: 90px;
+                padding: 0.3rem;
+            }
+
+            .paw-toe h4 {
+                font-size: 0.65rem;
+            }
+
+            .toe-1 {
+                left: -10%;
+            }
+
+            .toe-4 {
+                right: -10%;
+            }
         }
     </style>
 </head>

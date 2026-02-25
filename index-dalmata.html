@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DÓGUI · Dalmata Rebellion</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;700&family=Instrument+Serif:ital@0;1&family=DM+Serif+Display&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        black: "#050505",
+                        white: "#ffffff",
+                        gold: "#c5a059",
+                    },
+                    fontFamily: {
+                        sans: ['"Instrument Sans"', 'sans-serif'],
+                        serif: ['"Instrument Serif"', 'serif'],
+                        display: ['"DM Serif Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --black: #050505;
+            --white: #ffffff;
+            --gold: #c5a059;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--black);
+            font-family: 'Instrument Sans', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ── THE DALMATIAN ENGINE ── */
+        .spot {
+            position: absolute;
+            background: var(--black);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(2px);
+            opacity: 0.95;
+        }
+
+        /* Hero Spots */
+        .spot-hero-1 {
+            width: 40vw;
+            height: 40vw;
+            top: -10%;
+            right: -5%;
+        }
+
+        .spot-hero-2 {
+            width: 25vw;
+            height: 25vw;
+            bottom: 10%;
+            left: -5%;
+            border-radius: 60% 40% 30% 70%;
+        }
+
+        .spot-hero-3 {
+            width: 10vw;
+            height: 10vw;
+            top: 20%;
+            left: 15%;
+        }
+
+        /* Custom Cursor */
+        #cursor-dalmata {
+            position: fixed;
+            width: 25px;
+            height: 25px;
+            background: var(--black);
+            border-radius: 45% 55% 65% 35%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out, width 0.3s, height 0.3s;
+            mix-blend-difference: difference;
+        }
+
+        /* Typography Stagger */
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .reveal-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── DÓGUI PAW ACCENT (DALMATA VERSION) ── */
+        .paw-accent {
+            position: relative;
+            display: inline-block;
+        }
+
+        .paw-accent::after {
+            content: '';
+            position: absolute;
+            top: -0.4em;
+            left: 55%;
+            transform: translateX(-50%) rotate(10deg);
+            width: 0.6em;
+            height: 0.6em;
+            background-color: var(--black);
+            mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='32' cy='42' rx='13' ry='10' /%3E%3Cellipse cx='16' cy='28' rx='6' ry='7' /%3E%3Cellipse cx='27' cy='22' rx='6' ry='7' /%3E%3Cellipse cx='38' cy='22' rx='6' ry='7' /%3E%3Cellipse cx='49' cy='28' rx='6' ry='7' /%3E%3C/svg%3E") center/contain no-repeat;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='32' cy='42' rx='13' ry='10' /%3E%3Cellipse cx='16' cy='28' rx='6' ry='7' /%3E%3Cellipse cx='27' cy='22' rx='6' ry='7' /%3E%3Cellipse cx='38' cy='22' rx='6' ry='7' /%3E%3Cellipse cx='49' cy='28' rx='6' ry='7' /%3E%3C/svg%3E") center/contain no-repeat;
+        }
+
+        /* Grain Texture Overlay */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .section-inverse {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .section-inverse .spot {
+            background: var(--white);
+        }
+
+        .section-inverse .paw-accent::after {
+            background-color: var(--white);
+        }
+
+        /* Brutalist Buttons */
+        .btn-brutal {
+            border: 2px solid var(--black);
+            padding: 1rem 2.5rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.8rem;
+        }
+
+        .btn-brutal:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .btn-brutal-inverse {
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-brutal-inverse:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+    </style>
+</head>
+
+<body class="selection:bg-black selection:text-white">
+
+    <div id="cursor-dalmata" class="hidden md:block"></div>
+    <div class="noise"></div>
+
+    <!-- HEADER -->
+    <header
+        class="fixed top-0 left-0 w-full z-[100] py-10 px-6 md:px-12 flex justify-between items-center transition-all duration-500"
+        id="main-header">
+        <a href="#" class="text-3xl font-bold tracking-[0.2em] font-sans">D<span class="paw-accent">O</span>GUI</a>
+
+        <nav class="hidden md:flex space-x-12 text-[10px] font-bold tracking-[0.3em] uppercase">
+            <a href="#about" class="hover:line-through">Sobre</a>
+            <a href="#work" class="hover:line-through">Serviços</a>
+            <a href="blog.html" class="hover:line-through">Blog</a>
+            <a href="indique.html" class="text-gold">Indique</a>
+        </nav>
+
+        <div class="menu-trigger cursor-pointer group md:hidden" onclick="toggleMenu()">
+            <div class="w-8 h-[2px] bg-black mb-2 group-hover:w-4 transition-all"></div>
+            <div class="w-8 h-[2px] bg-black transition-all"></div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- HERO: THE SPOT -->
+        <section class="min-h-screen flex flex-col justify-center px-6 md:px-12 relative overflow-hidden bg-white">
+            <div class="spot spot-hero-1"></div>
+            <div class="spot spot-hero-2"></div>
+            <div class="spot spot-hero-3"></div>
+
+            <div class="max-w-7xl mx-auto relative z-10">
+                <p class="text-[12px] uppercase tracking-[0.6em] font-bold mb-8 reveal-text">Digital Rebellion Since '24
+                </p>
+                <h1
+                    class="text-[clamp(3.5rem,15vw,12rem)] font-display uppercase leading-[0.85] tracking-tighter mb-16 reveal-text">
+                    Pure <br> <span class="italic font-light">Instinct.</span>
+                </h1>
+
+                <div class="flex flex-col md:flex-row gap-12 items-start md:items-center reveal-text">
+                    <p class="max-w-md text-xl font-light leading-tight">
+                        A agência que não segue o bando. Ativação territorial com inteligência de matilha.
+                    </p>
+                    <a href="#work" class="btn-brutal">Conheça Nossas Manchas</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- MANIFESTO: INVERSE -->
+        <section class="section-inverse py-48 px-6 md:px-12 relative overflow-hidden">
+            <div class="spot w-[60vw] h-[60vw] -left-1/4 -top-1/4 opacity-10"></div>
+
+            <div class="max-w-5xl mx-auto relative z-10 text-center">
+                <span class="text-[10px] uppercase tracking-[1em] mb-12 block opacity-40">O Manifesto</span>
+                <h2 class="text-[clamp(2rem,6vw,5rem)] font-serif italic leading-tight mb-16 reveal-text">
+                    "O mercado é uma selva, mas a cidade é o nosso quintal. Nós não latimos, nós mordemos o resultado."
+                </h2>
+                <div class="w-1 bg-white h-24 mx-auto mb-16"></div>
+                <p class="text-2xl font-light opacity-60 leading-relaxed reveal-text">
+                    A DÓGUI nasceu para romper com o comercial genérico. No mundo P&B, o que importa é a mancha que você
+                    deixa no mercado.
+                </p>
+            </div>
+        </section>
+
+        <!-- SERVICES: SPOTTED GRID -->
+        <section id="work" class="py-32 px-6 md:px-12 bg-white relative">
+            <div class="max-w-[1600px] mx-auto">
+                <div class="flex flex-col lg:flex-row justify-between mb-32 items-end gap-12">
+                    <h2 class="text-6xl md:text-9xl font-bold uppercase tracking-tighter leading-none reveal-text">
+                        Nossas <br> <span class="font-light italic line-through">Capacidades</span>
+                    </h2>
+                    <p class="max-w-xs text-xs uppercase tracking-widest leading-loose opacity-40 reveal-text">
+                        Estratégias de ativação que transformam marcas comuns em autoridades locais dominantes.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Service 1 -->
+                    <div
+                        class="group border-2 border-black p-12 min-h-[450px] flex flex-col justify-between hover:bg-black hover:text-white transition-all duration-500 reveal-text">
+                        <span class="text-4xl font-display italic">01.</span>
+                        <div>
+                            <h3 class="text-3xl font-bold uppercase leading-tight mb-6">Influencer <br> Control</h3>
+                            <p class="text-sm opacity-50 mb-10 group-hover:opacity-100 transition-opacity">Curadoria e
+                                gestão de creators com foco em ROI real.</p>
+                            <span
+                                class="text-[10px] font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all">Ver
+                                Detalhes +</span>
+                        </div>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div
+                        class="group border-2 border-black p-12 min-h-[450px] flex flex-col justify-between hover:bg-black hover:text-white transition-all duration-500 mt-12 md:mt-0 reveal-text">
+                        <span class="text-4xl font-display italic">02.</span>
+                        <div>
+                            <h3 class="text-3xl font-bold uppercase leading-tight mb-6">Brand <br> Activation</h3>
+                            <p class="text-sm opacity-50 mb-10 group-hover:opacity-100 transition-opacity">Eventos e
+                                experiências que geram desejo imediato.</p>
+                            <span
+                                class="text-[10px] font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all">Ver
+                                Detalhes +</span>
+                        </div>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div
+                        class="group border-2 border-black p-12 min-h-[450px] flex flex-col justify-between hover:bg-black hover:text-white transition-all duration-500 mt-24 md:mt-12 lg:mt-0 reveal-text">
+                        <span class="text-4xl font-display italic">03.</span>
+                        <div>
+                            <h3 class="text-3xl font-bold uppercase leading-tight mb-6">Local <br> Dominion</h3>
+                            <p class="text-sm opacity-50 mb-10 group-hover:opacity-100 transition-opacity">Estratégia
+                                territorial para dominar bairros e regiões.</p>
+                            <span
+                                class="text-[10px] font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all">Ver
+                                Detalhes +</span>
+                        </div>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div
+                        class="group border-2 border-black p-12 min-h-[450px] flex flex-col justify-between hover:bg-black hover:text-white transition-all duration-500 mt-36 md:mt-12 lg:mt-0 reveal-text">
+                        <span class="text-4xl font-display italic">04.</span>
+                        <div>
+                            <h3 class="text-3xl font-bold uppercase leading-tight mb-6">Digital <br> Engine</h3>
+                            <p class="text-sm opacity-50 mb-10 group-hover:opacity-100 transition-opacity">Sistemas web
+                                e funis de alta performance técnica.</p>
+                            <span
+                                class="text-[10px] font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all">Ver
+                                Detalhes +</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA: THE FINAL SPOT -->
+        <section class="py-48 px-6 md:px-12 bg-black text-white relative flex justify-center items-center">
+            <div class="spot w-[80vw] h-[80vw] bg-white opacity-5"></div>
+            <div class="max-w-4xl mx-auto text-center relative z-10">
+                <h2 class="text-5xl md:text-8xl font-display uppercase tracking-tighter leading-none mb-12">Deixe Sua
+                    <br> Mancha.</h2>
+                <p class="text-xl font-light opacity-60 mb-16">Pronto para a revolução Dálmata no seu negócio?</p>
+                <a href="#" class="btn-brutal btn-brutal-inverse text-xl px-16 py-6 border-4">Entrar em Contato</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer
+        class="py-24 px-6 md:px-12 bg-white flex flex-col md:flex-row justify-between items-start md:items-end gap-16">
+        <div>
+            <span class="text-5xl font-bold tracking-tighter block mb-8">D<span class="paw-accent">O</span>GUI</span>
+            <p class="text-xs uppercase tracking-[0.4em] font-bold opacity-30">© 2026 DALMATA REBELLION • RP</p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-12 md:gap-32">
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-bold uppercase tracking-widest opacity-40">Navegação</h4>
+                <nav class="flex flex-col gap-2 font-bold text-sm uppercase italic">
+                    <a href="index.html" class="hover:line-through">Home Classic</a>
+                    <a href="blog.html" class="hover:line-through">Insights</a>
+                    <a href="indique.html" class="hover:line-through">Indique</a>
+                </nav>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-bold uppercase tracking-widest opacity-40">Social</h4>
+                <nav class="flex flex-col gap-2 font-bold text-sm uppercase italic">
+                    <a href="#" class="hover:line-through">Instagram</a>
+                    <a href="#" class="hover:line-through">LinkedIn</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIC -->
+    <script>
+        // Custom Cursor Movement
+        const cursor = document.getElementById('cursor-dalmata');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mousedown', () => cursor.style.transform = 'scale(0.8)');
+        document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
+
+        // Intersection Observer for Reveals
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
+
+        // Parallax Spots
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            document.querySelectorAll('.spot').forEach((spot, i) => {
+                const speed = (i + 1) * 0.1;
+                spot.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+
+            // Header Shrink
+            const header = document.getElementById('main-header');
+            if (scrolled > 100) {
+                header.classList.add('py-6', 'bg-white/80', 'backdrop-blur-md');
+                header.classList.remove('py-10');
+            } else {
+                header.classList.remove('py-6', 'bg-white/80', 'backdrop-blur-md');
+                header.classList.add('py-10');
+            }
+        });
+
+        // Hover Effect on Cursor for Interactive Elements
+        const interactive = document.querySelectorAll('a, button, .menu-trigger');
+        interactive.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '80px';
+                cursor.style.height = '80px';
+                cursor.style.opacity = '0.3';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '25px';
+                cursor.style.height = '25px';
+                cursor.style.opacity = '1';
+            });
+        });
+
+    </script>
+</body>
+
+</html>

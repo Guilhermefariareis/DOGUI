@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog DÓGUI · O Pulso da Ativação Digital</title>
+    <title>Blog DÓGUI · Dalmata Insights</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=DM+Serif+Display&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;700&family=Instrument+Serif:ital@0;1&family=DM+Serif+Display&display=swap"
         rel="stylesheet">
 
     <!-- Tailwind CDN -->
@@ -20,15 +20,14 @@
             theme: {
                 extend: {
                     colors: {
-                        charcoal: "#0c0c0c",
-                        offwhite: "#fdfdfd",
+                        black: "#050505",
+                        white: "#ffffff",
                         gold: "#c5a059",
-                        obsidian: "#131313",
                     },
                     fontFamily: {
                         sans: ['"Instrument Sans"', 'sans-serif'],
                         serif: ['"Instrument Serif"', 'serif'],
-                        editorial: ['"DM Serif Display"', 'serif'],
+                        display: ['"DM Serif Display"', 'serif'],
                     }
                 }
             }
@@ -37,33 +36,56 @@
 
     <style>
         :root {
+            --black: #050505;
+            --white: #ffffff;
             --gold: #c5a059;
-            --charcoal: #0c0c0c;
-            --offwhite: #fdfdfd;
         }
 
         body {
-            background-color: var(--charcoal);
-            color: var(--offwhite);
+            background-color: var(--white);
+            color: var(--black);
             font-family: 'Instrument Sans', sans-serif;
             overflow-x: hidden;
+            cursor: none;
         }
 
-        /* Noise Texture */
-        body::before {
-            content: "";
+        /* ── THE DALMATIAN ENGINE ── */
+        .spot {
+            position: absolute;
+            background: var(--black);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(2px);
+            opacity: 0.1;
+            /* Subtler for reading */
+        }
+
+        #cursor-dalmata {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            width: 25px;
+            height: 25px;
+            background: var(--black);
+            border-radius: 45% 55% 65% 35%;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            transition: transform 0.1s ease-out, width 0.3s, height 0.3s;
+            mix-blend-difference: difference;
         }
 
-        /* ── DÓGUI PAW ACCENT ── */
+        .blog-card {
+            border: 2px solid var(--black);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            background: white;
+        }
+
+        .blog-card:hover {
+            background: var(--black);
+            color: var(--white);
+            transform: translateY(-10px);
+        }
+
         .paw-accent {
             position: relative;
             display: inline-block;
@@ -77,117 +99,118 @@
             transform: translateX(-50%) rotate(10deg);
             width: 0.6em;
             height: 0.6em;
-            background-color: var(--gold);
+            background-color: var(--black);
             mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='32' cy='42' rx='13' ry='10' /%3E%3Cellipse cx='16' cy='28' rx='6' ry='7' /%3E%3Cellipse cx='27' cy='22' rx='6' ry='7' /%3E%3Cellipse cx='38' cy='22' rx='6' ry='7' /%3E%3Cellipse cx='49' cy='28' rx='6' ry='7' /%3E%3C/svg%3E") center/contain no-repeat;
             -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='32' cy='42' rx='13' ry='10' /%3E%3Cellipse cx='16' cy='28' rx='6' ry='7' /%3E%3Cellipse cx='27' cy='22' rx='6' ry='7' /%3E%3Cellipse cx='38' cy='22' rx='6' ry='7' /%3E%3Cellipse cx='49' cy='28' rx='6' ry='7' /%3E%3C/svg%3E") center/contain no-repeat;
         }
 
-        .blog-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .blog-card:hover {
-            background: rgba(197, 160, 89, 0.05);
-            border-color: var(--gold);
-            transform: translateY(-10px);
-        }
-
-        .editorial-title {
-            font-family: 'DM Serif Display', serif;
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
     </style>
 </head>
 
-<body class="selection:bg-gold selection:text-charcoal">
+<body class="selection:bg-black selection:text-white">
+
+    <div id="cursor-dalmata" class="hidden md:block"></div>
+    <div class="noise"></div>
 
     <!-- HEADER -->
-    <header class="fixed top-0 left-0 w-full z-[100] mix-blend-difference py-8 px-6 md:px-12">
-        <div class="max-w-[1700px] mx-auto flex items-center justify-between">
-            <a href="index.html" class="text-2xl font-bold tracking-[0.3em] font-sans">D<span
-                    class="paw-accent">O</span>GUI</a>
+    <header
+        class="fixed top-0 left-0 w-full z-[100] py-10 px-6 md:px-12 flex justify-between items-center bg-white/80 backdrop-blur-md border-b border-black/5">
+        <a href="index-dalmata.html" class="text-3xl font-bold tracking-[0.2em] font-sans">D<span
+                class="paw-accent">O</span>GUI</a>
 
-            <nav class="hidden md:flex space-x-12 text-sm font-medium tracking-widest uppercase">
-                <a href="index.html" class="hover:text-gold transition-colors">Home</a>
-                <a href="index.html#work" class="hover:text-gold transition-colors">Serviços</a>
-                <a href="blog.html" class="text-gold">Blog</a>
-                <a href="indique.html" class="hover:text-gold transition-colors">Indique & Ganhe</a>
-            </nav>
+        <nav class="hidden md:flex space-x-12 text-[10px] font-bold tracking-[0.3em] uppercase">
+            <a href="index-dalmata.html" class="hover:line-through">Home</a>
+            <a href="blog.html" class="line-through">Blog</a>
+            <a href="indique.html" class="text-gold">Indique</a>
+        </nav>
 
-            <a href="index.html#contact"
-                class="hidden md:block text-[10px] uppercase tracking-[0.3em] font-bold border border-offwhite/20 px-6 py-3 hover:bg-offwhite hover:text-charcoal transition-all">
-                Contato
-            </a>
-        </div>
+        <a href="index-dalmata.html#contact"
+            class="hidden md:block text-[10px] uppercase tracking-[0.3em] font-bold border-2 border-black px-6 py-3 hover:bg-black hover:text-white transition-all">
+            Contato
+        </a>
     </header>
 
-    <main class="pt-48 pb-32 px-6 md:px-12">
+    <main class="pt-48 pb-32 px-6 md:px-12 relative overflow-hidden">
+        <div class="spot w-[30vw] h-[30vw] top-0 left-[-10%] opacity-5"></div>
+        <div class="spot w-[20vw] h-[20vw] bottom-0 right-[-5%] opacity-5"></div>
+
         <div class="max-w-7xl mx-auto">
 
-            <!-- HEADER BLOG -->
-            <div class="mb-24 reveal-text">
-                <p class="text-[10px] uppercase tracking-[0.5em] text-gold mb-6 font-bold">O Nosso Mundo</p>
-                <h1
-                    class="text-5xl md:text-9xl font-bold uppercase tracking-tighter leading-[0.9] mb-12 editorial-title">
-                    Digital <br> Intelligence <br> <span class="text-gold italic font-light">Insights.</span>
+            <div class="mb-32">
+                <p class="text-[10px] uppercase tracking-[0.6em] font-bold mb-8">Digital Intelligence</p>
+                <h1 class="text-[clamp(3rem,12vw,10rem)] font-display uppercase leading-[0.85] tracking-tighter">
+                    Dalmata <br> <span class="italic font-light">Insights.</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-offwhite/50 max-w-2xl font-light leading-relaxed">
-                    Notícias, estratégias e o pulso do que está acontecendo no mercado de ativação digital e
-                    inteligência de marca.
-                </p>
             </div>
 
             <!-- POSTS GRID -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-black border-2 border-black">
 
                 <!-- Post 1 -->
-                <article class="blog-card p-10 flex flex-col h-full group">
-                    <span class="text-[10px] uppercase tracking-widest text-gold font-bold mb-6">Tendências 2026</span>
-                    <h2 class="text-2xl font-bold leading-tight mb-6 group-hover:text-gold transition-colors">O Futuro
-                        das Marcas Locais em Ecossistemas Digitais</h2>
-                    <p class="text-sm text-offwhite/40 leading-relaxed mb-12 flex-grow">
-                        Como o "Instinto" local está superando algoritmos globais na conquista da atenção do consumidor
-                        de Ribeirão Preto.
+                <article class="blog-card p-12 flex flex-col h-full group bg-white">
+                    <span class="text-[10px] uppercase tracking-widest text-gold font-bold mb-8 italic">Tendências
+                        '26</span>
+                    <h2 class="text-3xl font-bold leading-tight mb-8">O Fim do Minimalismo "Safe": Por que as Manchas
+                        Estão Vencendo</h2>
+                    <p class="text-sm opacity-50 leading-relaxed mb-12 flex-grow group-hover:opacity-100">
+                        Como o visual de alto contraste e a irregularidade orgânica capturam 4x mais atenção no scroll
+                        infinito.
                     </p>
-                    <div class="flex items-center justify-between border-t border-offwhite/10 pt-8">
-                        <span class="text-[10px] uppercase tracking-widest opacity-40">24 Fev 2026</span>
+                    <div
+                        class="flex items-center justify-between border-t border-black/10 pt-8 group-hover:border-white/20">
+                        <span class="text-[10px] uppercase tracking-widest opacity-40 group-hover:opacity-100">25 Fev
+                            2026</span>
                         <a href="#"
-                            class="text-[10px] uppercase tracking-widest font-bold group-hover:translate-x-2 transition-transform">Ler
-                            Mais →</a>
+                            class="text-[10px] uppercase tracking-widest font-bold group-hover:translate-x-2 transition-transform italic">Ler
+                            Artigo →</a>
                     </div>
                 </article>
 
                 <!-- Post 2 -->
-                <article class="blog-card p-10 flex flex-col h-full group">
-                    <span class="text-[10px] uppercase tracking-widest text-gold font-bold mb-6">Bastidores DÓGUI</span>
-                    <h2 class="text-2xl font-bold leading-tight mb-6 group-hover:text-gold transition-colors">DNA &
-                        Ativação: Por trás da nossa nova seção de Pilares</h2>
-                    <p class="text-sm text-offwhite/40 leading-relaxed mb-12 flex-grow">
-                        Um mergulho na filosofia de arquitetura de atuação que define a agência mais audaciosa da
-                        região.
+                <article class="blog-card p-12 flex flex-col h-full group bg-white">
+                    <span
+                        class="text-[10px] uppercase tracking-widest text-gold font-bold mb-8 italic">Bastidores</span>
+                    <h2 class="text-3xl font-bold leading-tight mb-8">Dalmata Rebellion: A Psicologia por trás do
+                        Redesign</h2>
+                    <p class="text-sm opacity-50 leading-relaxed mb-12 flex-grow group-hover:opacity-100">
+                        Um mergulho na desconstrução da interface DÓGUI. Por que trocamos o ouro pelo P&B radical.
                     </p>
-                    <div class="flex items-center justify-between border-t border-offwhite/10 pt-8">
-                        <span class="text-[10px] uppercase tracking-widest opacity-40">22 Fev 2026</span>
+                    <div
+                        class="flex items-center justify-between border-t border-black/10 pt-8 group-hover:border-white/20">
+                        <span class="text-[10px] uppercase tracking-widest opacity-40 group-hover:opacity-100">24 Fev
+                            2026</span>
                         <a href="#"
-                            class="text-[10px] uppercase tracking-widest font-bold group-hover:translate-x-2 transition-transform">Ler
-                            Mais →</a>
+                            class="text-[10px] uppercase tracking-widest font-bold group-hover:translate-x-2 transition-transform italic">Ler
+                            Artigo →</a>
                     </div>
                 </article>
 
                 <!-- Post 3 -->
-                <article class="blog-card p-10 flex flex-col h-full group">
-                    <span class="text-[10px] uppercase tracking-widest text-gold font-bold mb-6">Performance</span>
-                    <h2 class="text-2xl font-bold leading-tight mb-6 group-hover:text-gold transition-colors">A Ciência
-                        do Clique: Psicologia aplicada à Conversão</h2>
-                    <p class="text-sm text-offwhite/40 leading-relaxed mb-12 flex-grow">
-                        Por que certas ativações geram resultados imediatos enquanto outras apenas "existem" no digital.
+                <article class="blog-card p-12 flex flex-col h-full group bg-white">
+                    <span class="text-[10px] uppercase tracking-widest text-gold font-bold mb-8 italic">RP
+                        Insights</span>
+                    <h2 class="text-3xl font-bold leading-tight mb-8">O Mercado de Ribeirão sob uma Nova Ótica</h2>
+                    <p class="text-sm opacity-50 leading-relaxed mb-12 flex-grow group-hover:opacity-100">
+                        Não é sobre estar em todo lugar, é sobre ser inesquecível onde você pousar sua marca.
                     </p>
-                    <div class="flex items-center justify-between border-t border-offwhite/10 pt-8">
-                        <span class="text-[10px] uppercase tracking-widest opacity-40">18 Fev 2026</span>
+                    <div
+                        class="flex items-center justify-between border-t border-black/10 pt-8 group-hover:border-white/20">
+                        <span class="text-[10px] uppercase tracking-widest opacity-40 group-hover:opacity-100">22 Fev
+                            2026</span>
                         <a href="#"
-                            class="text-[10px] uppercase tracking-widest font-bold group-hover:translate-x-2 transition-transform">Ler
-                            Mais →</a>
+                            class="text-[10px] uppercase tracking-widest font-bold group-hover:translate-x-2 transition-transform italic">Ler
+                            Artigo →</a>
                     </div>
                 </article>
 
@@ -196,38 +219,38 @@
         </div>
     </main>
 
-    <!-- FOOTER (Sync) -->
+    <!-- FOOTER -->
     <footer
-        class="py-12 px-6 md:px-12 bg-charcoal border-t border-offwhite/5 flex flex-col md:flex-row justify-between items-center gap-8">
-        <div class="text-xl font-bold tracking-[0.3em]">D<span class="paw-accent">O</span>GUI</div>
-        <div class="text-[10px] uppercase tracking-widest opacity-40">
-            © 2026 DÓGUI • RIBEIRÃO PRETO, SP • TODOS OS DIREITOS RESERVADOS
+        class="py-24 px-6 md:px-12 bg-white flex flex-col md:flex-row justify-between items-start md:items-end gap-16 border-t border-black/10">
+        <div>
+            <span class="text-5xl font-bold tracking-tighter block mb-8">D<span class="paw-accent">O</span>GUI</span>
+            <p class="text-xs uppercase tracking-[0.4em] font-bold opacity-30">© 2026 DALMATA REBELLION • RP</p>
         </div>
-        <div class="flex gap-8">
-            <a href="index.html"
-                class="text-[10px] uppercase tracking-widest opacity-60 hover:opacity-100 transition-opacity">Home</a>
-            <a href="indique.html"
-                class="text-[10px] uppercase tracking-widest opacity-60 hover:opacity-100 transition-opacity">Indique &
-                Ganhe</a>
+        <div class="flex gap-12 font-bold text-sm uppercase italic">
+            <a href="index-dalmata.html" class="hover:line-through">Home</a>
+            <a href="indique.html" class="hover:line-through">Indique</a>
         </div>
     </footer>
 
     <script>
-        // Micro Reveals
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                }
-            });
-        }, { threshold: 0.1 });
+        const cursor = document.getElementById('cursor-dalmata');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
 
-        document.querySelectorAll('.blog-card, .reveal-text').forEach(el => {
-            el.style.opacity = "0";
-            el.style.transform = "translateY(30px)";
-            el.style.transition = "all 0.8s cubic-bezier(0.2, 1, 0.3, 1)";
-            observer.observe(el);
+        const interactive = document.querySelectorAll('a, button, article');
+        interactive.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '80px';
+                cursor.style.height = '80px';
+                cursor.style.opacity = '0.2';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '25px';
+                cursor.style.height = '25px';
+                cursor.style.opacity = '1';
+            });
         });
     </script>
 </body>
