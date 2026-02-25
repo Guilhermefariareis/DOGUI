@@ -108,10 +108,66 @@
             transform: translateY(0);
             opacity: 1;
         }
+
+        /* Money Floating Animation */
+        @keyframes floatMoney {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        .money-icon {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: 0;
+            animation: floatMoney 6s ease-in-out infinite;
+        }
+
+        .money-icon-gold {
+            opacity: 0.4;
+            filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.3));
+        }
     </style>
 </head>
 
 <body class="bg-charcoal text-offwhite selection:bg-gold selection:text-charcoal relative">
+
+    <!-- Floating Background Money -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <!-- Dollar 1 -->
+        <svg class="money-icon w-12 text-gold top-[15%] left-[10%]" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+        <!-- Bag 1 -->
+        <svg class="money-icon w-16 text-gold top-[70%] left-[5%]" style="animation-delay: -2s;" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 3.5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2.5s3 1 3 4v6a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6v-6s0-3 3-4V3.5Z"
+                stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M19 10h-14M12 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <!-- Dollar 2 -->
+        <svg class="money-icon w-10 text-gold top-[40%] right-[8%]" style="animation-delay: -4s;" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+        <!-- Bag 2 -->
+        <svg class="money-icon w-20 text-gold top-[80%] right-[12%]" style="animation-delay: -1s;" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 3.5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2.5s3 1 3 4v6a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6v-6s0-3 3-4V3.5Z"
+                stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M19 10h-14M12 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </div>
 
     <!-- Dog Paw Cursor -->
     <div id="cursor" class="hidden md:block" aria-hidden="true">
@@ -166,7 +222,7 @@
     <main>
         <!-- HERO -->
         <section class="min-h-screen flex flex-col justify-center px-6 md:px-12 relative overflow-hidden pt-32">
-            <div class="max-w-7xl mx-auto w-full">
+            <div class="max-w-7xl mx-auto w-full relative z-10">
                 <p class="text-[10px] uppercase tracking-[0.5em] text-gold mb-8 font-bold">Programa de Parceiros</p>
                 <h1
                     class="text-[clamp(2.5rem,10vw,7rem)] font-bold tracking-tighter leading-[0.9] uppercase mb-12 reveal-text">
@@ -186,8 +242,8 @@
         </section>
 
         <!-- MECÂNICA (WHITE) -->
-        <section class="py-16 px-6 md:px-12 bg-white text-charcoal">
-            <div class="max-w-7xl mx-auto">
+        <section class="py-16 px-6 md:px-12 bg-white text-charcoal relative">
+            <div class="max-w-7xl mx-auto relative z-10">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-px md:bg-charcoal/5">
 
                     <!-- Passo 01 -->
@@ -210,10 +266,21 @@
                         </p>
                     </div>
 
-                    <div class="bg-white p-10 flex flex-col items-start text-left">
-                        <span class="text-gold font-bold text-lg mb-6">03</span>
-                        <h3 class="text-xl font-bold uppercase tracking-tight mb-4 text-charcoal">Receba</h3>
-                        <p class="text-sm text-charcoal/70 leading-relaxed">
+                    <div class="bg-white p-10 flex flex-col items-start text-left relative overflow-hidden group">
+                        <!-- Impact Animation Money Bag -->
+                        <svg class="absolute -right-4 -bottom-4 w-32 text-gold/10 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-700"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M6 3.5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2.5s3 1 3 4v6a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6v-6s0-3 3-4V3.5Z"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M19 10h-14M12 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+
+                        <span class="text-gold font-bold text-lg mb-6 relative z-10">03</span>
+                        <h3 class="text-xl font-bold uppercase tracking-tight mb-4 text-charcoal relative z-10">Receba
+                        </h3>
+                        <p class="text-sm text-charcoal/70 leading-relaxed relative z-10">
                             Contrato assinado? Sua recompensa é processada e enviada diretamente. Sem burocracia, apenas
                             mérito.
                         </p>
@@ -224,8 +291,8 @@
         </section>
 
         <!-- FORMULÁRIO -->
-        <section id="refer-form" class="py-32 px-6 md:px-12 bg-charcoal">
-            <div class="max-w-4xl mx-auto">
+        <section id="refer-form" class="py-32 px-6 md:px-12 bg-charcoal relative">
+            <div class="max-w-4xl mx-auto relative z-10">
                 <div class="text-center mb-24">
                     <h2 class="text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-8 reveal-text">Sua
                         Indicação.</h2>
@@ -240,34 +307,42 @@
                             <input type="text" placeholder="Nome completo"
                                 class="bg-transparent border-b border-offwhite/10 py-4 focus:border-gold outline-none transition-colors text-offwhite">
                         </div>
-                        <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Seu Contato
-                            (WhatsApp)</label>
-                        <input type="tel" placeholder="(16) 99999-9999"
-                            class="bg-transparent border-b border-offwhite/10 py-4 focus:border-gold outline-none transition-colors text-offwhite">
+                        <div class="flex flex-col gap-4">
+                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Seu Contato
+                                (WhatsApp)</label>
+                            <input type="tel" placeholder="(16) 99999-9999"
+                                class="bg-transparent border-b border-offwhite/10 py-4 focus:border-gold outline-none transition-colors text-offwhite">
+                        </div>
                     </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="flex flex-col gap-4">
+                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Marca
+                                Indicada</label>
+                            <input type="text" placeholder="Nome da empresa"
+                                class="bg-transparent border-b border-offwhite/10 py-4 focus:border-gold outline-none transition-colors text-offwhite">
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Contato
+                                deles</label>
+                            <input type="text" placeholder="WhatsApp ou E-mail"
+                                class="bg-transparent border-b border-offwhite/10 py-4 focus:border-gold outline-none transition-colors text-offwhite">
+                        </div>
+                    </div>
+                    <div class="pt-12 flex justify-center">
+                        <button type="submit"
+                            class="bg-gold text-charcoal px-16 py-6 text-sm font-bold uppercase tracking-[0.3em] hover:bg-offwhite transition-all">
+                            Enviar Indicação
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div class="flex flex-col gap-4">
-                    <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Marca
-                        Indicada</label>
-                    <input type="text" placeholder="Nome da empresa"
-                        class="bg-transparent border-b border-offwhite/10 py-4 focus:border-gold outline-none transition-colors text-offwhite">
-                </div>
-                <div class="flex flex-col gap-4">
-                    <label class="text-[10px] uppercase tracking-widest font-bold opacity-40">Contato
-                        deles</label>
-                    <input type="text" placeholder="WhatsApp ou E-mail"
-                        class="bg-transparent border-b border-offwhite/10 py-4 focus:border-gold outline-none transition-colors text-offwhite">
-                </div>
-            </div>
-            <div class="pt-12 flex justify-center">
-                <button type="submit"
-                    class="bg-gold text-charcoal px-16 py-6 text-sm font-bold uppercase tracking-[0.3em] hover:bg-offwhite transition-all">
-                    Enviar Indicação
-                </button>
-            </div>
-            </form>
-            </div>
+
+            <!-- Background Money in Form -->
+            <svg class="money-icon w-32 text-gold opacity-5 bottom-0 right-0" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
         </section>
     </main>
 
@@ -337,6 +412,15 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
+
+        // ── MONEY PARALLAX ──
+        window.addEventListener('scroll', () => {
+            const scroll = window.pageYOffset;
+            document.querySelectorAll('.money-icon').forEach(icon => {
+                const speed = 0.2;
+                icon.style.transform = `translateY(${scroll * speed}px)`;
+            });
+        });
     </script>
 </body>
 
