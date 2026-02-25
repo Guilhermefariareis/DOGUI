@@ -392,6 +392,100 @@
             mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='32' cy='42' rx='13' ry='10' /%3E%3Cellipse cx='16' cy='28' rx='6' ry='7' /%3E%3Cellipse cx='27' cy='22' rx='6' ry='7' /%3E%3Cellipse cx='38' cy='22' rx='6' ry='7' /%3E%3Cellipse cx='49' cy='28' rx='6' ry='7' /%3E%3C/svg%3E") center/contain no-repeat;
             -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='32' cy='42' rx='13' ry='10' /%3E%3Cellipse cx='16' cy='28' rx='6' ry='7' /%3E%3Cellipse cx='27' cy='22' rx='6' ry='7' /%3E%3Cellipse cx='38' cy='22' rx='6' ry='7' /%3E%3Cellipse cx='49' cy='28' rx='6' ry='7' /%3E%3C/svg%3E") center/contain no-repeat;
         }
+
+        /* ── ESSENCE PAW LAYOUT ── */
+        .paw-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 1/1;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .paw-center {
+            width: 45%;
+            height: 35%;
+            background: var(--gold);
+            border-radius: 50% 50% 45% 45%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--charcoal);
+            text-align: center;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(197, 160, 89, 0.2);
+            z-index: 5;
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .paw-toe {
+            position: absolute;
+            width: 22%;
+            height: 28%;
+            background: var(--charcoal);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: 4;
+            backdrop-blur: 5px;
+        }
+
+        .paw-toe:hover {
+            background: rgba(197, 160, 89, 0.1);
+            border-color: var(--gold);
+            transform: scale(1.1) translateY(-10px);
+        }
+
+        /* Toe Positions (Absolute Arc) */
+        .toe-1 {
+            top: 10%;
+            left: 5%;
+            transform: rotate(-35deg);
+        }
+
+        .toe-2 {
+            top: 0%;
+            left: 32%;
+            transform: rotate(-10deg);
+        }
+
+        .toe-3 {
+            top: 0%;
+            right: 32%;
+            transform: rotate(10deg);
+        }
+
+        .toe-4 {
+            top: 10%;
+            right: 5%;
+            transform: rotate(35deg);
+        }
+
+        .paw-toe span {
+            font-[Space Grotesk];
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .paw-toe h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
     </style>
 </head>
 
@@ -430,9 +524,8 @@
             <!-- Nav Desktop -->
             <nav class="hidden md:flex space-x-12 text-sm font-medium tracking-widest uppercase">
                 <a href="#work" class="hover:text-gold transition-colors">Serviços</a>
-                <a href="#method" class="hover:text-gold transition-colors">Método</a>
                 <a href="#about" class="hover:text-gold transition-colors">Sobre</a>
-                <a href="#contact" class="hover:text-gold transition-colors">Contato</a>
+                <a href="blog.html" class="hover:text-gold transition-colors">Blog</a>
                 <a href="indique.html" class="text-gold hover:text-offwhite transition-colors">Indique & Ganhe</a>
             </nav>
 
@@ -450,9 +543,8 @@
         class="fixed inset-0 z-[100] bg-charcoal translate-x-full transition-transform duration-500 md:hidden flex flex-col items-center justify-center p-12">
         <nav class="flex flex-col items-center gap-12 text-2xl font-bold tracking-[0.2em] uppercase">
             <a href="#work" onclick="toggleMobileMenu()">Serviços</a>
-            <a href="#method" onclick="toggleMobileMenu()">Método</a>
             <a href="#about" onclick="toggleMobileMenu()">Sobre</a>
-            <a href="#contact" onclick="toggleMobileMenu()">Contato</a>
+            <a href="blog.html" onclick="toggleMobileMenu()">Blog</a>
             <a href="indique.html" onclick="toggleMobileMenu()" class="text-gold">Indique & Ganhe</a>
         </nav>
         <div class="absolute bottom-12 flex gap-8 opacity-40 text-[10px] uppercase tracking-widest">
@@ -671,6 +763,70 @@
                             <p
                                 class="mt-4 text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-700">
                                 Vista • Comentada • Lembrada</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOSSO DNA (ESSENCE PAW) -->
+        <section id="dna" class="py-32 px-6 md:px-12 bg-charcoal relative overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                    <div class="reveal-text">
+                        <p class="text-[10px] uppercase tracking-[0.5em] text-gold mb-6 font-bold">Arquitetura de
+                            Atuação</p>
+                        <h2
+                            class="text-4xl md:text-7xl font-bold uppercase tracking-tighter leading-none mb-10 text-offwhite">
+                            A Identidade <br> que Molda o <br> <span class="text-gold">Sucesso.</span>
+                        </h2>
+                        <p class="text-lg text-offwhite/60 font-light leading-relaxed mb-12 max-w-lg">
+                            DÓGUI não é apenas uma agência; é uma estrutura viva de ativação territorial. Nossa essência
+                            é construída sobre quatro pilares que sustentam cada movimento estratégico no mercado.
+                        </p>
+                        <div class="space-y-8">
+                            <div class="flex items-start gap-6 group">
+                                <div
+                                    class="w-12 h-12 border border-gold/30 flex items-center justify-center text-gold font-bold transition-all group-hover:bg-gold group-hover:text-charcoal">
+                                    C</div>
+                                <div>
+                                    <h4
+                                        class="text-xs font-bold uppercase tracking-widest text-offwhite group-hover:text-gold transition-colors">
+                                        Coração do Negócio</h4>
+                                    <p class="text-[11px] text-offwhite/40 mt-1 uppercase tracking-widest">O Instinto
+                                        que antecipa tendências locais.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- THE PAW VISUAL -->
+                    <div class="paw-container reveal-text">
+                        <!-- THE TOES (4 ESSENTIALS) -->
+                        <div class="paw-toe toe-1">
+                            <span>Pilar 01</span>
+                            <h4>Estratégia</h4>
+                        </div>
+                        <div class="paw-toe toe-2">
+                            <span>Pilar 02</span>
+                            <h4>Agilidade</h4>
+                        </div>
+                        <div class="paw-toe toe-3">
+                            <span>Pilar 03</span>
+                            <h4>Conexão</h4>
+                        </div>
+                        <div class="paw-toe toe-4">
+                            <span>Pilar 04</span>
+                            <h4>Performance</h4>
+                        </div>
+
+                        <!-- THE CENTER (PURPOSE) -->
+                        <div class="paw-center">
+                            <span class="text-[10px] uppercase tracking-widest mb-2 opacity-60">O Centro</span>
+                            <h3 class="text-3xl font-extrabold uppercase tracking-tighter leading-tight">INSTINTO</h3>
+                            <div class="w-8 h-[2px] bg-charcoal my-4"></div>
+                            <p class="text-[8px] uppercase tracking-[0.2em] font-bold">Visionary Activation Authority
+                            </p>
                         </div>
                     </div>
                 </div>
