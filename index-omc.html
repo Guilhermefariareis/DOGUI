@@ -4,17 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOGUI | Dynamic Marketing Authority</title>
+    <title>DOGUI | Precision Marketing & Global Authority</title>
     <!-- SEO -->
     <meta name="description"
-        content="DOGUI: Precision marketing and architectural brand scaling. Inspired by global giants.">
+        content="DOGUI: Strategic activations and digital dominance. The global standard for premium brand growth.">
 
-    <!-- Fonts: Instrument Sans (Architectural) & Instrument Serif (Luxury Accent) -->
+    <!-- Fonts: Instrument Sans (Main) & Instrument Serif (Italic Elite) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@0;1&display=swap"
         rel="stylesheet">
+
+    <!-- Libraries: GSAP (The secret for smooth motion) & Lottie (The orbital dots) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,8 +41,10 @@
                     letterSpacing: {
                         'omc-tight': '-0.04em',
                     },
-                    borderRadius: {
-                        'omc': '24px',
+                    spacing: {
+                        'hero': '230px',
+                        'section-top': '230px',
+                        'section-bot': '200px',
                     }
                 }
             }
@@ -49,6 +56,7 @@
             --ivory: #F8F9FA;
             --obsidian: #161922;
             --orange: #FF671F;
+            --border: #E9EBEF;
         }
 
         body {
@@ -59,53 +67,27 @@
             overflow-x: hidden;
         }
 
-        /* ── ORBITAL BACKGROUND EFFECT ── */
-        .orbit-container {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 60%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        .orbit-circle {
+        /* ── HERO LOTTIE (Fidelity 1:1) ── */
+        .lottie-bg {
             position: absolute;
             top: 50%;
-            left: 50%;
-            border: 1px solid rgba(22, 25, 34, 0.05);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
+            right: -10%;
+            transform: translateY(-50%);
+            width: 80%;
+            max-width: 1200px;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.15;
+            mix-blend-mode: multiply;
         }
 
-        .dot {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: var(--orange);
-            border-radius: 50%;
-            offset-path: border-box;
-            animation: orbit-move var(--duration) linear infinite;
-        }
-
-        @keyframes orbit-move {
-            0% {
-                offset-distance: 0%;
-            }
-
-            100% {
-                offset-distance: 100%;
-            }
-        }
-
-        /* ── TYPOGRAPHY SCALE ── */
-        .h1-omc {
-            font-size: clamp(3.5rem, 12vw, 7.5rem);
+        /* ── TYPOGRAPHY ── */
+        .h1-apex {
+            font-size: clamp(3.5rem, 11vw, 7.8rem);
             font-weight: 800;
             line-height: 0.95;
             letter-spacing: -0.05em;
+            color: var(--obsidian);
         }
 
         .serif-italic {
@@ -114,55 +96,49 @@
             font-weight: 400;
         }
 
-        /* ── SECTION REVEALS ── */
-        .reveal-omc {
+        /* ── GSAP REVEAL CLASSES ── */
+        .gsap-reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            visibility: hidden;
         }
 
-        .reveal-active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ── PREMIUM CARDS ── */
-        .card-omc {
+        /* ── CARDS (OMC PRECISION) ── */
+        .card-apex {
             background: #FFFFFF;
-            border: 1px solid var(--omc_border);
-            border-radius: var(--omc);
-            padding: 3rem;
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 80px 48px;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        .card-omc:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+        .card-apex:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.04);
             border-color: var(--orange);
         }
 
-        /* ── BUTTONS ── */
-        .btn-omc {
+        /* ── BUTTONS (HIGH FIDELITY) ── */
+        .btn-apex {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             background: var(--obsidian);
             color: #FFFFFF;
-            padding: 18px 36px;
+            padding: 20px 40px;
             border-radius: 100px;
             font-weight: 700;
             text-transform: uppercase;
             font-size: 13px;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
+            letter-spacing: 0.08em;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        .btn-omc:hover {
+        .btn-apex:hover {
             background: var(--orange);
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
-        /* ── MARQUEE ── */
+        /* ── MARQUEE BRUTALIST ── */
         @keyframes marquee {
             0% {
                 transform: translateX(0);
@@ -175,7 +151,14 @@
 
         .animate-marquee {
             display: flex;
-            animation: marquee 50s linear infinite;
+            animation: marquee 60s linear infinite;
+        }
+
+        /* ── NAVIGATION (GLASS) ── */
+        .nav-glass {
+            background: rgba(248, 249, 250, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(233, 235, 239, 0.5);
         }
     </style>
 </head>
@@ -183,274 +166,263 @@
 <body class="selection:bg-omc_orange selection:text-white">
 
     <!-- HEADER -->
-    <header class="fixed top-0 left-0 w-full z-[100] py-8 px-6 md:px-12 bg-ivory/80 backdrop-blur-sm">
-        <div class="max-w-[1600px] mx-auto flex items-center justify-between">
-            <a href="#" class="text-2xl font-extrabold tracking-tighter text-omc_obsidian">
+    <header class="fixed top-0 left-0 w-full z-[100] nav-glass transition-all duration-500">
+        <div class="max-w-[1600px] mx-auto px-6 md:px-12 h-24 flex items-center justify-between">
+            <a href="#" class="text-3xl font-extrabold tracking-tighter text-omc_obsidian">
                 DOGUI <span class="text-omc_orange">.</span>
             </a>
 
-            <nav class="hidden md:flex gap-12 text-xs font-bold uppercase tracking-widest text-omc_graphite">
+            <nav class="hidden lg:flex gap-14 text-[11px] font-bold uppercase tracking-[0.2em] text-omc_graphite">
                 <a href="#work" class="hover:text-omc_orange transition-colors">Capability</a>
-                <a href="#method" class="hover:text-omc_orange transition-colors">The Protocol</a>
+                <a href="#method" class="hover:text-omc_orange transition-colors">Orchestration</a>
                 <a href="#about" class="hover:text-omc_orange transition-colors">Collective</a>
                 <a href="indique.html"
-                    class="px-4 py-2 bg-omc_obsidian text-white rounded-full hover:bg-omc_orange transition-all">Network</a>
+                    class="px-6 py-2.5 bg-omc_obsidian text-white rounded-full hover:bg-omc_orange hover:scale-105 transition-all">Network</a>
             </nav>
 
-            <button class="md:hidden w-10 h-10 flex flex-col justify-center items-end gap-1.5 focus:outline-none">
-                <div class="w-8 h-1 bg-omc_obsidian"></div>
-                <div class="w-5 h-1 bg-omc_orange"></div>
+            <button class="lg:hidden w-10 h-10 flex flex-col justify-center items-end gap-1.5 group">
+                <div class="w-8 h-[2px] bg-omc_obsidian transition-all group-hover:w-full"></div>
+                <div class="w-5 h-[2px] bg-omc_orange transition-all group-hover:w-full"></div>
             </button>
         </div>
     </header>
 
     <main>
-        <!-- HERO (OMC FLOATING STYLE) -->
+        <!-- HERO (IDENTICAL TO OMC) -->
         <section id="hero"
-            class="relative min-h-screen flex items-center pt-24 px-6 md:px-12 overflow-hidden bg-omc_ivory">
-            <!-- Orbital shapes -->
-            <div class="orbit-container hidden md:block">
-                <div class="orbit-circle w-[400px] h-[400px]"></div>
-                <div class="orbit-circle w-[700px] h-[700px]"></div>
-                <div class="orbit-circle w-[1000px] h-[1000px]"></div>
-                <!-- Animating dots -->
-                <div class="dot" style="--duration: 15s; offset-path: path('M200,0 a200,200 0 1,0 0.1,0');"></div>
-                <div class="dot"
-                    style="--duration: 25s; offset-path: path('M350,0 a350,350 0 1,0 0.1,0'); background: #161922;">
-                </div>
+            class="relative min-h-screen flex items-center pt-nav px-6 md:px-12 bg-omc_ivory overflow-hidden">
+
+            <!-- Lottie Background Asset (Original JSON from omc.com) -->
+            <div class="lottie-bg">
+                <lottie-player src="https://www.omc.com/wp-content/uploads/2025/11/02-Home-top-section.json"
+                    background="transparent" speed="0.8" style="width: 100%; height: 100%;" loop
+                    autoplay></lottie-player>
             </div>
 
-            <div class="max-w-[1600px] mx-auto w-full relative z-10 grid grid-cols-1 md:grid-cols-12 gap-12">
-                <div class="md:col-span-10 lg:col-span-9">
-                    <div class="inline-block px-4 py-1 border border-omc_obsidian/10 rounded-full mb-8 reveal-omc">
-                        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-omc_graphite">Accelerating
-                            Modern Marketing</span>
+            <div class="max-w-[1700px] mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12">
+                <div class="lg:col-span-11">
+                    <div class="flex items-center gap-4 mb-10 gsap-hero-reveal">
+                        <div class="w-12 h-[2px] bg-omc_orange"></div>
+                        <span class="text-[11px] font-bold uppercase tracking-[0.3em] text-omc_graphite">The World's
+                            Leading Growth Collective</span>
                     </div>
-                    <h1 class="h1-omc reveal-omc">
-                        O <span class="serif-italic">Instinto</span> que <br> Orquestra o <br> <span
-                            class="text-omc_orange">Crescimento.</span>
+
+                    <h1 class="h1-apex gsap-hero-reveal">
+                        O <span class="serif-italic">Instinto</span> que <br> Orquestra a <br> <span
+                            class="text-omc_orange">Grandeza.</span>
                     </h1>
-                    <div class="mt-12 reveal-omc" style="transition-delay: 200ms;">
-                        <p class="text-2xl md:text-4xl font-light leading-snug text-omc_graphite max-w-4xl">
-                            A DOGUI transforma marcas locais através de <span
-                                class="font-semibold text-omc_obsidian">ativações de alto impacto</span> e estruturas
-                            digitais de elite.
-                            <span class="serif-italic">Presença</span> é poder.
+
+                    <div class="mt-16 gsap-hero-reveal">
+                        <p
+                            class="text-3xl md:text-5xl font-light leading-[1.15] text-omc_graphite max-w-5xl tracking-tight">
+                            Elevamos o padrão do branding local através de <span
+                                class="font-semibold text-omc_obsidian italic underline decoration-omc_orange/30">precisão
+                                arquitetônica</span> e tecnologia de impacto global.
                         </p>
-                        <div class="mt-12 flex flex-wrap gap-6">
-                            <a href="#contact" class="btn-omc group">
-                                Explore Capability
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                    class="group-hover:translate-x-2 transition-transform">
+
+                        <div class="mt-16 flex flex-wrap gap-8">
+                            <a href="#contact" class="btn-apex group">
+                                Explore Our Capability
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    class="group-hover:translate-x-3 transition-transform duration-500">
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2.5"
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Scroll Indicator -->
-            <div class="absolute bottom-12 left-12 flex flex-col gap-4 opacity-20">
-                <div class="w-px h-16 bg-omc_obsidian"></div>
-                <span
-                    class="text-[9px] font-black uppercase tracking-widest rotate-90 origin-left mt-2 whitespace-nowrap">Scroll
-                    Down</span>
-            </div>
-        </section>
-
-        <!-- TRUST MARQUEE (The Omnicom Way) -->
-        <section class="py-12 bg-omc_obsidian overflow-hidden">
-            <div class="flex animate-marquee items-center">
-                <div
-                    class="flex items-center gap-24 px-12 text-[11px] font-bold uppercase tracking-[0.4em] text-white/40 italic">
-                    <span>Precision</span> <span>Authority</span> <span>Influence</span> <span>Scale</span>
-                    <span>Digital</span> <span>Territory</span>
-                    <span>Growth</span> <span>Success</span> <span>Identity</span> <span>Vision</span>
-                </div>
-                <div
-                    class="flex items-center gap-24 px-12 text-[11px] font-bold uppercase tracking-[0.4em] text-white/40 italic">
-                    <span>Precision</span> <span>Authority</span> <span>Influence</span> <span>Scale</span>
-                    <span>Digital</span> <span>Territory</span>
-                    <span>Growth</span> <span>Success</span> <span>Identity</span> <span>Vision</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- CAPABILITIES (OMC GRID) -->
-        <section id="work" class="py-32 px-6 md:px-12 bg-omc_ivory">
-            <div class="max-w-[1600px] mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-end gap-12 mb-24">
-                    <div class="reveal-omc">
-                        <span class="text-xs font-bold uppercase tracking-widest text-omc_orange mb-4 block">Our
-                            Solutions</span>
-                        <h2 class="text-5xl md:text-7xl font-extrabold text-omc_obsidian uppercase tracking-tighter">
-                            Essential <span class="serif-italic">Impact.</span></h2>
-                    </div>
-                    <div class="max-w-md reveal-omc">
-                        <p class="text-lg text-omc_graphite font-light leading-relaxed">
-                            A DOGUI opera na intersecção entre o <span class="font-bold underline">comportamento
-                                local</span> e a <span class="font-bold">excelência digital</span>.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Solution 1 -->
-                    <div class="card-omc reveal-omc">
-                        <div
-                            class="w-16 h-16 bg-omc_ivory border border-omc_obsidian/5 rounded-2xl flex items-center justify-center mb-10 text-omc_orange">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5">
-                                <rect x="2" y="2" width="20" height="20" rx="5" />
-                                <path d="M7 12h10M12 7v10" />
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-omc_obsidian uppercase mb-6 tracking-tight">Ativações
-                            Estratégicas</h3>
-                        <p class="text-omc_graphite leading-relaxed mb-6 font-light">Orquestração completa de presença
-                            física, de inaugurações a ativações regionais de grande escala.</p>
-                        <a href="#"
-                            class="text-xs font-bold uppercase tracking-widest text-omc_orange flex items-center gap-2 group">
-                            Learn more <span class="group-hover:translate-x-1 transition-transform">→</span>
-                        </a>
-                    </div>
-                    <!-- Solution 2 -->
-                    <div class="card-omc reveal-omc" style="transition-delay: 150ms;">
-                        <div
-                            class="w-16 h-16 bg-omc_ivory border border-omc_obsidian/5 rounded-2xl flex items-center justify-center mb-10 text-omc_orange">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5">
-                                <path d="M12 2v20M2 12h20" />
-                                <circle cx="12" cy="12" r="10" />
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-omc_obsidian uppercase mb-6 tracking-tight">High-End Digital
-                        </h3>
-                        <p class="text-omc_graphite leading-relaxed mb-6 font-light">Websites e sistemas de conversão
-                            desenvolvidos sob os mais altos padrões de performance e luxo.</p>
-                        <a href="#"
-                            class="text-xs font-bold uppercase tracking-widest text-omc_orange flex items-center gap-2 group">
-                            Learn more <span class="group-hover:translate-x-1 transition-transform">→</span>
-                        </a>
-                    </div>
-                    <!-- Solution 3 -->
-                    <div class="card-omc reveal-omc" style="transition-delay: 300ms;">
-                        <div
-                            class="w-16 h-16 bg-omc_ivory border border-omc_obsidian/5 rounded-2xl flex items-center justify-center mb-10 text-omc_orange">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5">
-                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-                                <path d="M21 5c0 1.66-4 3-9 3S3 6.66 3 5s4-3 9-3 9 1.34 9 3z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-omc_obsidian uppercase mb-6 tracking-tight">Data Authority
-                        </h3>
-                        <p class="text-omc_graphite leading-relaxed mb-6 font-light">Mensuração proprietária para
-                            garantir que cada ativação se converta em território e lucro real.</p>
-                        <a href="#"
-                            class="text-xs font-bold uppercase tracking-widest text-omc_orange flex items-center gap-2 group">
-                            Learn more <span class="group-hover:translate-x-1 transition-transform">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- THE COLLECTIVE (OMC IMPACT) -->
-        <section class="py-32 bg-omc_obsidian text-white overflow-hidden relative">
-            <div class="max-w-[1600px] mx-auto px-6 md:px-12 relative z-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
-                    <div class="reveal-omc">
-                        <h2 class="text-6xl md:text-8xl font-extrabold uppercase tracking-tightest leading-none mb-10">
-                            The <br> <span class="serif-italic">Collective</span> <br> Factor.
-                        </h2>
-                        <p class="text-2xl font-light text-white/60 leading-relaxed max-w-lg mb-12">
-                            A DOGUI opera através de um ecossistema conectado de criadores, estrategistas e
-                            especialistas em território.
-                        </p>
-                        <div class="grid grid-cols-2 gap-12 border-t border-white/10 pt-12">
-                            <div>
-                                <span class="text-4xl font-bold text-omc_orange block mb-2 stat-number"
-                                    data-target="150">0</span>
-                                <span class="text-[10px] font-bold uppercase tracking-widest text-white/40">Projects
-                                    Activated</span>
-                            </div>
-                            <div>
-                                <span class="text-4xl font-bold text-omc_orange block mb-2 stat-number"
-                                    data-target="12">0</span>
-                                <span class="text-[10px] font-bold uppercase tracking-widest text-white/40">Million
-                                    Reach</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative reveal-omc">
-                        <div
-                            class="aspect-square bg-white/5 rounded-omc border border-white/10 flex items-center justify-center overflow-hidden">
-                            <!-- Abstract Graphic -->
-                            <div class="relative w-full h-full flex items-center justify-center">
-                                <div
-                                    class="absolute w-64 h-64 border border-omc_orange/20 rounded-full animate-pulse-slow">
-                                </div>
-                                <div class="absolute w-96 h-96 border border-white/5 rounded-full"></div>
-                                <div class="text-8xl serif-italic text-white opacity-10">DOGUI</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT (OMC CLEAN FORM) -->
-        <section id="contact" class="py-32 px-6 md:px-12 bg-omc_ivory">
-            <div class="max-w-[1600px] mx-auto">
-                <div
-                    class="grid grid-cols-1 md:grid-cols-12 gap-24 section-omc border border-omc_obsidian/5 rounded-omc p-12 md:p-24 bg-white">
-                    <div class="md:col-span-5 reveal-omc">
-                        <h2 class="text-6xl font-extrabold text-omc_obsidian uppercase tracking-tighter mb-10">Connect.
-                        </h2>
-                        <p class="text-xl text-omc_graphite font-light max-w-xs mb-12">Reservado para marcas que buscam
-                            dominar o <span class="font-bold underline">seu território</span>.</p>
-
-                        <div class="space-y-8">
                             <div class="flex items-center gap-6">
-                                <div class="w-12 h-[1px] bg-omc_orange"></div>
-                                <span class="text-xs font-bold uppercase tracking-widest text-omc_obsidian">Ribeirão
-                                    Preto / SP</span>
-                            </div>
-                            <div class="flex items-center gap-6">
-                                <div class="w-12 h-[1px] bg-omc_graphite/20"></div>
+                                <div class="w-1.5 h-1.5 bg-omc_orange rounded-full animate-ping"></div>
                                 <span
-                                    class="text-xs font-bold uppercase tracking-widest text-omc_obsidian">omni@dogui.studio</span>
+                                    class="text-[10px] font-bold uppercase tracking-widest text-omc_graphite/40">Active
+                                    Deployments (24/7)</span>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="md:col-span-7 reveal-omc">
-                        <form class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-16">
-                            <div class="relative group">
-                                <label
-                                    class="text-[10px] font-bold uppercase tracking-widest text-omc_graphite/40 mb-2 block">Name</label>
-                                <input type="text"
-                                    class="w-full bg-transparent border-b border-omc_obsidian/10 py-2 outline-none focus:border-omc_orange transition-all font-semibold text-xl tracking-tighter">
+            <!-- Side Navigation Indicator -->
+            <div class="absolute right-12 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-8 items-center">
+                <div class="w-[1px] h-24 bg-omc_obsidian/10"></div>
+                <span class="text-[10px] uppercase font-bold tracking-widest vertical-text opacity-20">Ribeirão Preto //
+                    SP</span>
+                <div class="w-[1px] h-24 bg-omc_obsidian/10"></div>
+            </div>
+        </section>
+
+        <!-- TRUST STRIP (OMC DARK STYLE) -->
+        <section class="bg-omc_obsidian py-16 overflow-hidden">
+            <div class="flex items-center animate-marquee">
+                <div
+                    class="flex gap-40 px-20 items-center text-[13px] font-bold uppercase tracking-[0.5em] text-white/30 whitespace-nowrap italic">
+                    <span>Performance Scale</span> <span>Strategic Authority</span> <span>Digital Dominion</span>
+                    <span>Market Intelligence</span> <span>Brand Architecture</span>
+                </div>
+                <div
+                    class="flex gap-40 px-20 items-center text-[13px] font-bold uppercase tracking-[0.5em] text-white/30 whitespace-nowrap italic">
+                    <span>Performance Scale</span> <span>Strategic Authority</span> <span>Digital Dominion</span>
+                    <span>Market Intelligence</span> <span>Brand Architecture</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAPABILITIES (OMC MONUMENTAL PADDING) -->
+        <section id="work" class="pt-section-top pb-section-bot px-6 md:px-12 bg-white">
+            <div class="max-w-[1600px] mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-20 items-end mb-32 gsap-section-reveal">
+                    <div class="lg:col-span-8">
+                        <span
+                            class="text-xs font-extrabold uppercase tracking-[0.4em] text-omc_orange mb-6 block">Capability</span>
+                        <h2
+                            class="text-6xl md:text-9xl font-extrabold text-omc_obsidian uppercase tracking-omc-tight leading-[0.85]">
+                            The <span class="serif-italic">Power</span> of <br> Connectivity.
+                        </h2>
+                    </div>
+                    <div class="lg:col-span-4">
+                        <p
+                            class="text-2xl font-light text-omc_graphite leading-relaxed pb-4 border-b border-omc_border">
+                            A DOGUI opera como um coletivo de especialistas que funde estratégia física com execução
+                            digital cirúrgica.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Unit 01 -->
+                    <div class="card-apex gsap-section-reveal">
+                        <div class="text-[10px] font-bold uppercase tracking-[0.3em] text-omc_orange mb-12">Unit_01
+                        </div>
+                        <h3 class="text-3xl font-extrabold text-omc_obsidian uppercase tracking-tight mb-8">Ativações
+                            <br> <span class="serif-italic">Proprietárias.</span></h3>
+                        <p class="text-lg font-light text-omc_graphite leading-relaxed mb-10">Domínio de território
+                            local através de ativações de marca que geram autoridade instantânea.</p>
+                        <hr class="border-omc_border mb-8">
+                        <a href="#"
+                            class="text-xs font-bold uppercase tracking-widest text-omc_obsidian flex items-center justify-between group">
+                            Explore Discipline
+                            <span class="group-hover:translate-x-2 transition-transform">→</span>
+                        </a>
+                    </div>
+                    <!-- Unit 02 -->
+                    <div class="card-apex gsap-section-reveal" style="transition-delay: 100ms;">
+                        <div class="text-[10px] font-bold uppercase tracking-[0.3em] text-omc_orange mb-12">Unit_02
+                        </div>
+                        <h3 class="text-3xl font-extrabold text-omc_obsidian uppercase tracking-tight mb-8">Web <br>
+                            <span class="serif-italic">Engineering.</span></h3>
+                        <p class="text-lg font-light text-omc_graphite leading-relaxed mb-10">Websites mobile-first de
+                            ultra-luxo, projetados para conversão agressiva e performance pura.</p>
+                        <hr class="border-omc_border mb-8">
+                        <a href="#"
+                            class="text-xs font-bold uppercase tracking-widest text-omc_obsidian flex items-center justify-between group">
+                            Explore Discipline
+                            <span class="group-hover:translate-x-2 transition-transform">→</span>
+                        </a>
+                    </div>
+                    <!-- Unit 03 -->
+                    <div class="card-apex gsap-section-reveal" style="transition-delay: 200ms;">
+                        <div class="text-[10px] font-bold uppercase tracking-[0.3em] text-omc_orange mb-12">Unit_03
+                        </div>
+                        <h3 class="text-3xl font-extrabold text-omc_obsidian uppercase tracking-tight mb-8">Intelligence
+                            <br> <span class="serif-italic">& Authority.</span></h3>
+                        <p class="text-lg font-light text-omc_graphite leading-relaxed mb-10">Gestão integrada de
+                            posicionamento digital e análise de métricas reais de lucro.</p>
+                        <hr class="border-omc_border mb-8">
+                        <a href="#"
+                            class="text-xs font-bold uppercase tracking-widest text-omc_obsidian flex items-center justify-between group">
+                            Explore Discipline
+                            <span class="group-hover:translate-x-2 transition-transform">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE MISSION (OMC DARK THEME IMPACT) -->
+        <section
+            class="bg-omc_obsidian pt-section-top pb-section-bot px-6 md:px-12 text-white relative overflow-hidden">
+            <!-- Secondary Lottie (Investors Graphic Style) -->
+            <div class="absolute left-[-10%] top-[-20%] w-full h-[150%] opacity-10 pointer-events-none">
+                <lottie-player src="https://www.omc.com/wp-content/uploads/2025/11/04-Investors-Graphic.json"
+                    background="transparent" speed="0.5" style="width: 100%; height: 100%;" loop
+                    autoplay></lottie-player>
+            </div>
+
+            <div class="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-32 relative z-10">
+                <div class="gsap-section-reveal">
+                    <h2 class="text-7xl md:text-[120px] font-extrabold uppercase tracking-tightest leading-[0.8] mb-16">
+                        The <br> <span class="serif-italic">Apex</span> <br> Factor.
+                    </h2>
+                    <p class="text-3xl font-light text-white/50 leading-relaxed max-w-xl">
+                        A DOGUI não é apenas uma agência. É um <span class="text-white font-bold">destino
+                            estratégico</span> para marcas que exigem nada menos que a liderança absoluta.
+                    </p>
+                </div>
+                <div class="flex flex-col justify-end gsap-section-reveal">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-16 border-t border-white/10 pt-16">
+                        <div>
+                            <span class="text-7xl font-extrabold text-omc_orange block mb-4 stat-number"
+                                data-target="150">0</span>
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-white/30">Strategic
+                                Activations</span>
+                        </div>
+                        <div>
+                            <span class="text-7xl font-extrabold text-omc_orange block mb-4 stat-number"
+                                data-target="12">0</span>
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-white/30">Million Local
+                                Reach</span>
+                        </div>
+                    </div>
+                    <div class="mt-20">
+                        <a href="#contact"
+                            class="btn-apex bg-white text-omc_obsidian hover:bg-omc_orange hover:text-white border-none">
+                            Discover The Network
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT (OMC CLEAN MINIMALISM) -->
+        <section id="contact" class="pt-section-top pb-section-bot px-6 md:px-12 bg-white">
+            <div class="max-w-[1500px] mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-32 items-start">
+                    <div class="lg:col-span-5 gsap-section-reveal">
+                        <h2
+                            class="text-7xl md:text-9xl font-extrabold text-omc_obsidian uppercase tracking-omc-tight leading-[0.85] mb-12">
+                            Deploy <br> <span class="serif-italic text-omc_orange">Now.</span>
+                        </h2>
+                        <p class="text-2xl font-light text-omc_graphite max-w-sm">
+                            Estamos prontos para orquestrar sua próxima fase de <span
+                                class="font-bold underline">dominação de mercado</span>.
+                        </p>
+                    </div>
+
+                    <div class="lg:col-span-7 bg-omc_ivory rounded-omc p-12 md:p-24 gsap-section-reveal">
+                        <form class="space-y-16">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                                <div class="relative">
+                                    <label
+                                        class="text-[10px] font-bold uppercase tracking-[0.3em] text-omc_graphite/40 mb-4 block">Full
+                                        Name</label>
+                                    <input type="text"
+                                        class="w-full bg-transparent border-b border-omc_obsidian/10 py-3 outline-none focus:border-omc_orange transition-all font-semibold text-2xl tracking-tighter text-omc_obsidian">
+                                </div>
+                                <div class="relative">
+                                    <label
+                                        class="text-[10px] font-bold uppercase tracking-[0.3em] text-omc_graphite/40 mb-4 block">Organization</label>
+                                    <input type="text"
+                                        class="w-full bg-transparent border-b border-omc_obsidian/10 py-3 outline-none focus:border-omc_orange transition-all font-semibold text-2xl tracking-tighter text-omc_obsidian">
+                                </div>
                             </div>
-                            <div class="relative group">
+                            <div class="relative">
                                 <label
-                                    class="text-[10px] font-bold uppercase tracking-widest text-omc_graphite/40 mb-2 block">Enterprise</label>
-                                <input type="text"
-                                    class="w-full bg-transparent border-b border-omc_obsidian/10 py-2 outline-none focus:border-omc_orange transition-all font-semibold text-xl tracking-tighter">
-                            </div>
-                            <div class="relative group sm:col-span-2">
-                                <label
-                                    class="text-[10px] font-bold uppercase tracking-widest text-omc_graphite/40 mb-2 block">WhatsApp</label>
+                                    class="text-[10px] font-bold uppercase tracking-[0.3em] text-omc_graphite/40 mb-4 block">Direct
+                                    Contact (WhatsApp)</label>
                                 <input type="tel"
-                                    class="w-full bg-transparent border-b border-omc_obsidian/10 py-2 outline-none focus:border-omc_orange transition-all font-semibold text-xl tracking-tighter">
+                                    class="w-full bg-transparent border-b border-omc_obsidian/10 py-3 outline-none focus:border-omc_orange transition-all font-semibold text-2xl tracking-tighter text-omc_obsidian">
                             </div>
-                            <div class="sm:col-span-2 pt-8">
-                                <button type="submit" class="btn-omc w-full justify-center">
-                                    Initiate Deployment
+                            <div class="pt-10">
+                                <button type="submit" class="btn-apex w-full justify-center py-8 text-sm">
+                                    Initiate Performance Discovery
                                 </button>
                             </div>
                         </form>
@@ -460,64 +432,95 @@
         </section>
     </main>
 
-    <footer class="py-20 px-6 md:px-12 border-t border-omc_obsidian/5">
-        <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
-            <div class="text-2xl font-extrabold tracking-tighter text-omc_obsidian">
+    <!-- FOOTER (OMC MONOCHROME) -->
+    <footer class="py-24 px-6 md:px-12 bg-white border-t border-omc_border">
+        <div class="max-w-[1600px] mx-auto flex flex-col lg:flex-row justify-between items-center gap-16">
+            <div class="text-4xl font-extrabold tracking-tightest text-omc_obsidian">
                 DOGUI <span class="text-omc_orange">.</span>
             </div>
 
-            <div class="flex gap-12 text-[10px] font-bold uppercase tracking-widest text-omc_graphite/40">
-                <a href="#" class="hover:text-omc_orange transition-colors">LinkedIn</a>
-                <a href="#" class="hover:text-omc_orange transition-colors">Instagram</a>
-                <a href="#" class="hover:text-omc_orange transition-colors">Ethics</a>
-            </div>
+            <nav
+                class="flex flex-wrap justify-center gap-16 text-[11px] font-bold uppercase tracking-[0.3em] text-omc_graphite/40">
+                <a href="#" class="hover:text-omc_obsidian transition-colors">LinkedIn</a>
+                <a href="#" class="hover:text-omc_obsidian transition-colors">Instagram</a>
+                <a href="#" class="hover:text-omc_obsidian transition-colors">Capability Map</a>
+                <a href="#" class="hover:text-omc_obsidian transition-colors">Privacy Ethics</a>
+            </nav>
 
-            <p class="text-[10px] font-bold text-omc_graphite/20 uppercase tracking-[0.2em]">© 2026 DOGUI Collective.
-                Accelerating Brands.</p>
+            <div class="text-right">
+                <p
+                    class="text-[10px] font-bold text-omc_graphite/30 uppercase tracking-[0.2em] mb-2 text-center lg:text-right">
+                    © 2026 DOGUI Collective. Architecture of Authority.</p>
+                <p class="text-[9px] font-medium text-omc_orange uppercase tracking-widest text-center lg:text-right">
+                    Ribeirão Preto // São Paulo // Brasil</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // ── REVEAL OBSERVER ──
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal-active');
-                }
+        // ── GSAP INITS ──
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Entrance
+        const heroTl = gsap.timeline();
+        heroTl.from(".gsap-hero-reveal", {
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: "power4.out",
+            delay: 0.5
+        });
+
+        heroTl.from(".lottie-bg", {
+            scale: 0.8,
+            opacity: 0,
+            duration: 2,
+            ease: "expo.out"
+        }, "-=1.5");
+
+        // Section Reveals
+        document.querySelectorAll(".gsap-section-reveal").forEach((el) => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                y: 60,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out"
             });
-        }, { threshold: 0.1 });
+        });
 
-        document.querySelectorAll('.reveal-omc').forEach(el => revealObserver.observe(el));
+        // ── COUNTER ANIMATION (GSAP Sync) ──
+        const counters = document.querySelectorAll('.stat-number');
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            gsap.to(counter, {
+                scrollTrigger: {
+                    trigger: counter,
+                    start: "top 90%"
+                },
+                innerText: target,
+                duration: 2,
+                snap: { innerText: 1 },
+                ease: "power2.out"
+            });
+        });
 
-        // ── COUNTER ANIMATION ──
-        (function () {
-            const counters = document.querySelectorAll('.stat-number');
-            const speed = 200;
-
-            const animate = (counter) => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                const inc = target / speed;
-
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(() => animate(counter), 20);
-                } else {
-                    counter.innerText = target;
-                }
-            };
-
-            const counterObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animate(entry.target);
-                        counterObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            counters.forEach(c => counterObserver.observe(c));
-        })();
+        // Custom Nav Effect on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('py-4');
+                header.classList.remove('py-8');
+            } else {
+                header.classList.add('py-8');
+                header.classList.remove('py-4');
+            }
+        });
     </script>
 </body>
 
